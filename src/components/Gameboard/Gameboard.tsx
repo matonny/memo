@@ -14,7 +14,7 @@ export const Gameboard = ({ size }: GameboardProps) => {
         return;
       }
     }
-    incorrectGuess();
+    setTimeout(incorrectGuess, 1000);
   };
   const correctGuess = () => {
     setGuessedCards(guessedCards.concat(flippedCards));
@@ -23,18 +23,25 @@ export const Gameboard = ({ size }: GameboardProps) => {
   const incorrectGuess = () => {
     setFlippedCards([]);
   };
-  const shuffle = (values: string[]) => {};
+  const shuffle = (values: string[]) => {
+    return values.reduce((acc, currVal, index) => {
+      const j = Math.floor(Math.random() * (index + 1));
+      return index !== j
+        ? [...acc.slice(0, j), currVal, ...acc.slice(j + 1), acc[j]]
+        : [...acc, currVal];
+    }, [] as string[]);
+  };
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
-  const cards = ["a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2"];
-  console.log(flippedCards.length);
-  const shuffled = shuffle(cards);
+  const [cards, setCards] = useState(
+    shuffle(["a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2"])
+  );
   if (flippedCards.length == 2) {
-    setTimeout(checkGuess, 1000);
+    checkGuess();
   }
   return (
     <ul>
-      {cards.map((card, index) => {
+      {cards.map((card) => {
         const currFlipped =
           flippedCards.includes(card) || guessedCards.includes(card);
         return (
@@ -45,7 +52,6 @@ export const Gameboard = ({ size }: GameboardProps) => {
               onClick={
                 !currFlipped && flippedCards.length < 2
                   ? () => {
-                      console.log("huh");
                       setFlippedCards(flippedCards.concat(card));
                     }
                   : () => {}
