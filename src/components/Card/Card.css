@@ -1,0 +1,36 @@
+.card {
+  width: 300px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.active {
+  transform: rotateY(0.5turn);
+}
+.content {
+  text-align: center;
+  position: relative;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  padding: 5em;
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  backface-visibility: hidden;
+}
+
+.cardFront {
+  background: red;
+  transform: rotateY(0.5turn);
+}
+.cardBack {
+  background: pink;
+}
