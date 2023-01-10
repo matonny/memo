@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Card.css";
 
 type CardProps = Readonly<{
@@ -13,7 +12,7 @@ export const Card = ({ card, flipped, onClick }: CardProps) => {
   return (
     <div className="card" onClick={onClick}>
       <div className={contentClass}>
-        <div className={frontClass}>Front</div>
+        <div className={frontClass}>{card.slice(0, card.length - 1)}</div>
         <div className={backClass}>Back</div>
       </div>
     </div>

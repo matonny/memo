@@ -1,6 +1,6 @@
-import React from 'react'
-import { Gameboard } from './components/Gameboard';
-import './App.css';
+import React from "react";
+import { Gameboard } from "./components/Gameboard/Gameboard";
+import "./App.css";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <Gameboard size={8}/>
+        <Gameboard size={8} />
         <a
           className="App-link"
           href="https://reactjs.org"
