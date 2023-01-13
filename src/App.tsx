@@ -1,26 +1,21 @@
-import React from "react";
+import { useState } from "react";
 import { Gameboard } from "./components/Gameboard/Gameboard";
 import "./App.css";
-
-function App() {
+import { Menu } from "./components/Menu/Menu";
+import { GameState } from "./components/types";
+export const App = () => {
+  const [currState, setCurrState] = useState<GameState>("menu");
+  console.log(currState);
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Gameboard size={8} />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {currState == "menu" && <Menu changeState={setCurrState} />}
+        {currState == "game" && <Gameboard size={2} />}
+        {currState == "customise" && <Gameboard size={2} />}
+        {currState == "score" && <Gameboard size={2} />}
       </header>
     </div>
   );
-}
+};
 
 export default App;
