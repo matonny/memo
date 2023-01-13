@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
+import { GameState } from "../types";
 
 type GameboardProps = Readonly<{
   size: number;
+  changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
 
-export const Gameboard = ({ size }: GameboardProps) => {
+export const Gameboard = ({ size, changeState }: GameboardProps) => {
   const checkGuess = () => {
     if (flippedCards.length == 2) {
       console.log(flippedCards);
@@ -39,6 +41,14 @@ export const Gameboard = ({ size }: GameboardProps) => {
   if (flippedCards.length == 2) {
     checkGuess();
   }
+  useEffect(() => {
+    if (flippedCards.length == 2) {
+      checkGuess();
+    }
+    if (guessedCards.length == size) {
+      changeState("menu");
+    }
+  }, [flippedCards]);
   return (
     <ul>
       {cards.map((card) => {

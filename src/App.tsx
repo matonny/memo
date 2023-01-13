@@ -10,9 +10,15 @@ export const App = () => {
     <div className="App">
       <header className="App-header">
         {currState == "menu" && <Menu changeState={setCurrState} />}
-        {currState == "game" && <Gameboard size={2} />}
-        {currState == "customise" && <Gameboard size={2} />}
-        {currState == "score" && <Gameboard size={2} />}
+        {currState == "game" && (
+          <Gameboard changeState={setCurrState} size={8} />
+        )}
+        {currState == "customise" && (
+          <Gameboard changeState={setCurrState} size={8} />
+        )}
+        {currState == "score" && (
+          <Gameboard changeState={setCurrState} size={8} />
+        )}
       </header>
     </div>
   );
