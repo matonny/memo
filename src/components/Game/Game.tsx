@@ -40,11 +40,13 @@ export const Game = ({ changeState }: GameProps) => {
           );
         })}
       </ul>
+      <button type="submit">PLAY</button>
     </form>
   );
-  return !play ? (
-    form
-  ) : (
-    <Gameboard size={cardNumber} changeState={changeState} />
+  return (
+    <>
+      {!play ? form : <Gameboard size={cardNumber} changeState={changeState} />}
+      <button onClick={() => changeState("menu")}>Menu</button>
+    </>
   );
 };
