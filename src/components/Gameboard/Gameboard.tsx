@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
 import { Difficulty, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
+import "./Gameboard.css";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -17,7 +18,7 @@ export const Gameboard = ({
   const checkGuess = () => {
     if (flippedCards.length == 2) {
       console.log(flippedCards);
-      if (flippedCards[0].charAt(0) == flippedCards[1].charAt(0)) {
+      if (flippedCards[0].slice(0, -1) === flippedCards[1].slice(0, -1)) {
         correctGuess();
         return;
       }
@@ -66,7 +67,7 @@ export const Gameboard = ({
   }, [flippedCards]);
 
   return (
-    <ul>
+    <ul className="gameboard">
       {cards.map((card) => {
         const currFlipped =
           flippedCards.includes(card) || guessedCards.includes(card);
