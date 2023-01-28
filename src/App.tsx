@@ -12,12 +12,12 @@ export const App = () => {
       <header className="App-header">
         {currState == "menu" && <Menu changeState={setCurrState} />}
         {currState == "game" && <Game changeState={setCurrState} />}
-        {currState == "customise" && (
+        {/* {currState == "customise" && (
           <Gameboard changeState={setCurrState} size={8} />
         )}
         {currState == "score" && (
           <Gameboard changeState={setCurrState} size={8} />
-        )}
+        )} */}
       </header>
     </div>
   );

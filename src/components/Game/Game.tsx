@@ -13,7 +13,7 @@ export const Game = ({ changeState }: GameProps) => {
     event.preventDefault();
     setPlay(true);
   };
-  const form = (
+  const gameSettings = (
     <form onSubmit={(e) => handleSubmit(e)}>
       <input
         type="range"
@@ -45,7 +45,15 @@ export const Game = ({ changeState }: GameProps) => {
   );
   return (
     <>
-      {!play ? form : <Gameboard size={cardNumber} changeState={changeState} />}
+      {!play ? (
+        gameSettings
+      ) : (
+        <Gameboard
+          size={cardNumber}
+          difficulty={difficulty}
+          changeState={changeState}
+        />
+      )}
       <button onClick={() => changeState("menu")}>Menu</button>
     </>
   );

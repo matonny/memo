@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
-import { GameState } from "../types";
+import { Difficulty, GameState } from "../types";
+import { getMemoContent } from "../memoContent";
 
 type GameboardProps = Readonly<{
   size: number;
+  difficulty: Difficulty;
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
 
-export const Gameboard = ({ size, changeState }: GameboardProps) => {
+export const Gameboard = ({
+  size,
+  changeState,
+  difficulty,
+}: GameboardProps) => {
   const checkGuess = () => {
     if (flippedCards.length == 2) {
       console.log(flippedCards);
@@ -18,13 +24,16 @@ export const Gameboard = ({ size, changeState }: GameboardProps) => {
     }
     setTimeout(incorrectGuess, 1000);
   };
+
   const correctGuess = () => {
     setGuessedCards(guessedCards.concat(flippedCards));
     setFlippedCards([]);
   };
+
   const incorrectGuess = () => {
     setFlippedCards([]);
   };
+
   const shuffle = (values: string[]) => {
     return values.reduce((acc, currVal, index) => {
       const j = Math.floor(Math.random() * (index + 1));
@@ -33,10 +42,16 @@ export const Gameboard = ({ size, changeState }: GameboardProps) => {
         : [...acc, currVal];
     }, [] as string[]);
   };
+  const addIds = (cards: string[]) => {
+    return cards.reduce(
+      (prev, curr) => prev.concat([curr + "1", curr + "2"]),
+      [] as string[]
+    );
+  };
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
   const [cards, setCards] = useState(
-    shuffle(["a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2"])
+    shuffle(addIds(getMemoContent(difficulty)))
   );
   if (flippedCards.length == 2) {
     checkGuess();
@@ -49,6 +64,7 @@ export const Gameboard = ({ size, changeState }: GameboardProps) => {
       changeState("menu");
     }
   }, [flippedCards]);
+
   return (
     <ul>
       {cards.map((card) => {
