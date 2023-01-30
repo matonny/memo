@@ -1,3 +1,3 @@
 export type GameState = "menu" | "game" | "customise" | "score";
 
-export type Difficulty = "easy" | "medium" | "hard";
+export type GameMode = "color" | "word" | "number";

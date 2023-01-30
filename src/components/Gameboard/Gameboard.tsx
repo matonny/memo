@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
-import { Difficulty, GameState } from "../types";
+import { GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
 import "./Gameboard.css";
 
 type GameboardProps = Readonly<{
   size: number;
-  difficulty: Difficulty;
+  difficulty: GameMode;
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
 
@@ -34,7 +34,11 @@ export const Gameboard = ({
   const incorrectGuess = () => {
     setFlippedCards([]);
   };
-
+  const prepareCards = () => {
+    const rawCards = getMemoContent(difficulty);
+    const selectedCards = shuffle(rawCards).slice(0, size);
+    return shuffle(addIds(selectedCards));
+  };
   const shuffle = (values: string[]) => {
     return values.reduce((acc, currVal, index) => {
       const j = Math.floor(Math.random() * (index + 1));
@@ -51,9 +55,7 @@ export const Gameboard = ({
   };
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
-  const [cards, setCards] = useState(
-    shuffle(addIds(getMemoContent(difficulty)))
-  );
+  const [cards, setCards] = useState(prepareCards());
   if (flippedCards.length == 2) {
     checkGuess();
   }
@@ -61,7 +63,7 @@ export const Gameboard = ({
     if (flippedCards.length == 2) {
       checkGuess();
     }
-    if (guessedCards.length == size) {
+    if (guessedCards.length == size * 2) {
       changeState("menu");
     }
   }, [flippedCards]);
@@ -71,10 +73,12 @@ export const Gameboard = ({
       {cards.map((card) => {
         const currFlipped =
           flippedCards.includes(card) || guessedCards.includes(card);
+        const cardWithoutId = card.slice(0, -1);
         return (
           <li key={card}>
             <Card
               card={card}
+              color={difficulty == "color" ? cardWithoutId : undefined}
               flipped={currFlipped}
               onClick={
                 !currFlipped && flippedCards.length < 2

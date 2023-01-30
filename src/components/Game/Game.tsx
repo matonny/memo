@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
-import { Difficulty, GameState } from "../types";
+import { GameMode, GameState } from "../types";
 type GameProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 };
 export const Game = ({ changeState }: GameProps) => {
-  const difficulties = ["easy", "medium", "hard"] as Difficulty[];
-  const [cardNumber, setCardNumber] = useState(8);
-  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+  const minValue = 4;
+  const maxValue = 20;
+  const difficulties = ["color", "word", "number"] as GameMode[];
+  const [cardNumber, setCardNumber] = useState(minValue);
+  const [difficulty, setDifficulty] = useState<GameMode>("color");
   const [play, setPlay] = useState(false);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,8 +19,8 @@ export const Game = ({ changeState }: GameProps) => {
     <form onSubmit={(e) => handleSubmit(e)}>
       <input
         type="range"
-        min="8"
-        max="40"
+        min={minValue}
+        max={maxValue}
         value={cardNumber}
         onChange={(e) => setCardNumber(e.target.valueAsNumber)}
       />
@@ -32,7 +34,7 @@ export const Game = ({ changeState }: GameProps) => {
                   type="radio"
                   value={elem}
                   checked={difficulty === elem}
-                  onChange={(e) => setDifficulty(e.target.value as Difficulty)}
+                  onChange={(e) => setDifficulty(e.target.value as GameMode)}
                 />
                 {elem}
               </label>
