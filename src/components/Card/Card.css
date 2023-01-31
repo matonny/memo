@@ -1,5 +1,8 @@
 .card {
-  width: 300px;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin: 10px;
 }
 *,
 *::before,
@@ -14,11 +17,17 @@
   position: relative;
   transition: transform 0.5s;
   transform-style: preserve-3d;
-  padding: 5em;
 }
 
 .cardFront,
 .cardBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   top: 0;
   bottom: 0;
