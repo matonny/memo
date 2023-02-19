@@ -3,7 +3,8 @@ import { Card } from "../Card/Card";
 import { GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
 import "./Gameboard.css";
-import { Timer } from "../../Timer/Timer";
+import { Timer } from "../Timer/Timer";
+import { addIds, getCardMultiplier, shuffle } from "../../utils";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -28,37 +29,41 @@ export const Gameboard = ({
   const correctGuess = () => {
     setGuessedCards(guessedCards.concat(flippedCards));
     setFlippedCards([]);
+    const rawGuessPoints = 50;
+    const boostedGuessPoints =
+      rawGuessPoints * Math.pow(2, combo) * getCardMultiplier(size);
+    console.log(boostedGuessPoints);
+    console.log(combo);
+    console.log(getCardMultiplier(size));
+    setCombo((prevCombo) => prevCombo + 1);
+    setScore((prevScore) => prevScore + boostedGuessPoints);
   };
 
   const incorrectGuess = () => {
+    const penalty = 20;
     setFlippedCards([]);
+    setIncorrectGuessCount(
+      (prevIncorrectGuessCount) => prevIncorrectGuessCount + 1
+    );
+
+    setCombo(0);
+    setScore((prevScore) => prevScore - penalty);
   };
+
   const prepareCards = () => {
     const rawCards = getMemoContent(difficulty);
     const selectedCards = shuffle(rawCards).slice(0, size);
     return shuffle(addIds(selectedCards));
   };
-  const shuffle = (values: string[]) => {
-    return values.reduce((acc, currVal, index) => {
-      const j = Math.floor(Math.random() * (index + 1));
-      return index !== j
-        ? [...acc.slice(0, j), currVal, ...acc.slice(j + 1), acc[j]]
-        : [...acc, currVal];
-    }, [] as string[]);
-  };
-  const addIds = (cards: string[]) => {
-    return cards.reduce(
-      (prev, curr) => prev.concat([curr + "1", curr + "2"]),
-      [] as string[]
-    );
-  };
+
   const [secondsPlayed, setSecondsPlayed] = useState(0);
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
   const [cards, setCards] = useState(prepareCards());
-  if (flippedCards.length == 2) {
-    checkGuess();
-  }
+  const [incorrectGuessCount, setIncorrectGuessCount] = useState(0);
+  const [combo, setCombo] = useState(0);
+  const [score, setScore] = useState(0);
+
   useEffect(() => {
     if (flippedCards.length == 2) {
       checkGuess();
@@ -67,10 +72,10 @@ export const Gameboard = ({
       changeState("menu");
     }
   }, [flippedCards]);
-
   return (
     <>
-      <Timer updateSecondsPassed={setSecondsPlayed} />
+      <Timer updateScore={setScore} />
+      <p>{score}</p>
       <ul className="gameboard">
         {cards.map((card) => {
           const currFlipped =

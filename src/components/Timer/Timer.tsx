@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 type TimerProps = Readonly<{
-  updateSecondsPassed: React.Dispatch<React.SetStateAction<number>>;
+  updateScore: React.Dispatch<React.SetStateAction<number>>;
 }>;
 
-export const Timer = ({ updateSecondsPassed }: TimerProps) => {
+export const Timer = ({ updateScore }: TimerProps) => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
@@ -14,10 +14,15 @@ export const Timer = ({ updateSecondsPassed }: TimerProps) => {
       setMinutes((prevMinutes) => prevMinutes + 1);
       setSeconds(0);
     }
-    updateSecondsPassed(minutes * 60 + seconds);
+    const timePenalty = 1;
+    updateScore((prevScore) => prevScore - timePenalty);
   };
   useEffect(() => {
-    setTimeout(updateTimer, 50);
+    const timeoutId = setTimeout(updateTimer, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [seconds]);
   return (
     <p className="timer">
