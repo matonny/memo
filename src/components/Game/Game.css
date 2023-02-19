@@ -1,0 +1,11 @@
+.gameModesList {
+  list-style-type: none;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  padding: 0;
+}
+.gameModeOption {
+  display: flex;
+  align-items: left;
+}

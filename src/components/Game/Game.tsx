@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
 import { GameMode, GameState } from "../types";
+import "./Game.css";
 type GameProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 };
 export const Game = ({ changeState }: GameProps) => {
   const minValue = 4;
   const maxValue = 20;
-  const difficulties = ["color", "word", "number"] as GameMode[];
+  const gameModes = ["color", "word", "number"] as GameMode[];
   const [cardNumber, setCardNumber] = useState(minValue);
-  const [difficulty, setDifficulty] = useState<GameMode>("color");
+  const [currGameMode, setCurrGameMode] = useState<GameMode>("color");
   const [play, setPlay] = useState(false);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,20 +26,21 @@ export const Game = ({ changeState }: GameProps) => {
         onChange={(e) => setCardNumber(e.target.valueAsNumber)}
       />
       <p>{cardNumber}</p>
-      <ul>
-        {difficulties.map((elem) => {
+      <ul className="gameModesList">
+        {gameModes.map((gameMode) => {
           return (
-            <div key={elem}>
+            <li className="gameModeOption" key={gameMode}>
               <label>
                 <input
+                  name={gameMode}
                   type="radio"
-                  value={elem}
-                  checked={difficulty === elem}
-                  onChange={(e) => setDifficulty(e.target.value as GameMode)}
+                  value={gameMode}
+                  checked={currGameMode === gameMode}
+                  onChange={(e) => setCurrGameMode(e.target.value as GameMode)}
                 />
-                {elem}
+                {gameMode}
               </label>
-            </div>
+            </li>
           );
         })}
       </ul>
@@ -52,7 +54,7 @@ export const Game = ({ changeState }: GameProps) => {
       ) : (
         <Gameboard
           size={cardNumber}
-          difficulty={difficulty}
+          difficulty={currGameMode}
           changeState={changeState}
         />
       )}

@@ -1,0 +1,15 @@
+.button {
+  width: 150px;
+  height: 50px;
+  border: 2px solid white;
+  text-transform: uppercase;
+  border-radius: 10px;
+  margin: 20px 0;
+  color: black;
+  background-color: white;
+}
+.button:focus {
+  font-weight: 700;
+  outline: none;
+  box-shadow: 10px 10px 0px #131519;
+}

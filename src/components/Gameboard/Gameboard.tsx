@@ -3,6 +3,7 @@ import { Card } from "../Card/Card";
 import { GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
 import "./Gameboard.css";
+import { Timer } from "../../Timer/Timer";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -17,7 +18,6 @@ export const Gameboard = ({
 }: GameboardProps) => {
   const checkGuess = () => {
     if (flippedCards.length == 2) {
-      console.log(flippedCards);
       if (flippedCards[0].slice(0, -1) === flippedCards[1].slice(0, -1)) {
         correctGuess();
         return;
@@ -25,7 +25,6 @@ export const Gameboard = ({
     }
     setTimeout(incorrectGuess, 1000);
   };
-
   const correctGuess = () => {
     setGuessedCards(guessedCards.concat(flippedCards));
     setFlippedCards([]);
@@ -53,6 +52,7 @@ export const Gameboard = ({
       [] as string[]
     );
   };
+  const [secondsPlayed, setSecondsPlayed] = useState(0);
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
   const [cards, setCards] = useState(prepareCards());
@@ -69,28 +69,32 @@ export const Gameboard = ({
   }, [flippedCards]);
 
   return (
-    <ul className="gameboard">
-      {cards.map((card) => {
-        const currFlipped =
-          flippedCards.includes(card) || guessedCards.includes(card);
-        const cardWithoutId = card.slice(0, -1);
-        return (
-          <li key={card}>
-            <Card
-              card={card}
-              color={difficulty == "color" ? cardWithoutId : undefined}
-              flipped={currFlipped}
-              onClick={
-                !currFlipped && flippedCards.length < 2
-                  ? () => {
-                      setFlippedCards(flippedCards.concat(card));
-                    }
-                  : () => {}
-              }
-            />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <Timer updateSecondsPassed={setSecondsPlayed} />
+      <ul className="gameboard">
+        {cards.map((card) => {
+          const currFlipped =
+            flippedCards.includes(card) || guessedCards.includes(card);
+          const cardWithoutId = card.slice(0, -1);
+          return (
+            <li key={card}>
+              <Card
+                card={cardWithoutId}
+                color={difficulty == "color" ? cardWithoutId : undefined}
+                back="pl"
+                flipped={currFlipped}
+                onClick={
+                  !currFlipped && flippedCards.length < 2
+                    ? () => {
+                        setFlippedCards(flippedCards.concat(card));
+                      }
+                    : () => {}
+                }
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
