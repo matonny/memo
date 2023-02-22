@@ -24,7 +24,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px solid #fff;
+  border: 5px solid black;
   border-radius: 20px;
   width: 150px;
   height: 150px;
@@ -45,4 +45,11 @@
 }
 .pl {
   background: linear-gradient(135deg, white 50%, rgb(255, 107, 107) 50%);
+}
+[role="button"]:focus .cardBack,
+[role="button"]:focus .cardFront {
+  border: 5px solid white;
+}
+[role="button"]:focus {
+  outline: none;
 }
