@@ -26,6 +26,10 @@ export const Gameboard = ({
     }
     setTimeout(incorrectGuess, 1000);
   };
+  const finishGame = () => {
+    setGameOn(false);
+  };
+
   const correctGuess = () => {
     setGuessedCards(guessedCards.concat(flippedCards));
     setFlippedCards([]);
@@ -55,11 +59,11 @@ export const Gameboard = ({
     const selectedCards = shuffle(rawCards).slice(0, size);
     return shuffle(addIds(selectedCards));
   };
-
   const [secondsPlayed, setSecondsPlayed] = useState(0);
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
   const [cards, setCards] = useState(prepareCards());
+  const [gameOn, setGameOn] = useState(true);
   const [incorrectGuessCount, setIncorrectGuessCount] = useState(0);
   const [combo, setCombo] = useState(0);
   const [score, setScore] = useState(0);
@@ -69,12 +73,12 @@ export const Gameboard = ({
       checkGuess();
     }
     if (guessedCards.length == size * 2) {
-      changeState("menu");
+      finishGame();
     }
   }, [flippedCards]);
   return (
     <>
-      <Timer updateScore={setScore} />
+      <Timer updateScore={setScore} gameOn={gameOn} />
       <p>{score}</p>
       <ul className="gameboard">
         {cards.map((card) => {

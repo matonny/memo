@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Gameboard } from "./components/Gameboard/Gameboard";
 import "./App.css";
 import { Menu } from "./components/Menu/Menu";
 import { GameState } from "./components/types";
 import { Game } from "./components/Game/Game";
+import { prepareLocalStorage } from "./storage";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
-  console.log(currState);
+
+  useEffect(() => {
+    prepareLocalStorage();
+  }, []);
   return (
     <div className="App">
       <header className="App-header">

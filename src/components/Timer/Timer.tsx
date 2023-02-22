@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 
 type TimerProps = Readonly<{
   updateScore: React.Dispatch<React.SetStateAction<number>>;
+  gameOn: boolean;
 }>;
 
-export const Timer = ({ updateScore }: TimerProps) => {
+export const Timer = ({ updateScore, gameOn }: TimerProps) => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
   const updateTimer = () => {
+    if (!gameOn) {
+      return;
+    }
     setSeconds((prevSeconds) => prevSeconds + 1);
     if (seconds >= 60) {
       setMinutes((prevMinutes) => prevMinutes + 1);
