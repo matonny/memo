@@ -1,17 +1,18 @@
-import { storageType } from "./components/types";
 
 export const addScore = (score: number) => {
-  const currLocalStorage = localStorage.getItem("game");
+  const scoreKey = "score"
+  const rawStorage = localStorage.getItem(scoreKey);
+  const currScores =  rawStorage ? JSON.parse(rawStorage) as number[] : [] as number[]
+  console.log(currScores)
+  currScores.push(score)
+  console.log(currScores)
+  localStorage.setItem(scoreKey, JSON.stringify(currScores))
 };
 
-export const prepareLocalStorage = () => {
-  const storage = localStorage.getItem("game");
-  if (storage == null) {
-    const storageTemplate: storageType = {
-      coins: 0,
-      unlocked: [],
-      highscores: [],
-    };
-    localStorage.setItem("game", JSON.stringify(storageTemplate));
-  }
-};
+export const addCoins = (newCoins:number) => {
+  const coinsKey = "coins"
+  const rawStorage = localStorage.getItem(coinsKey)
+  const currCoins = rawStorage ? JSON.parse(rawStorage) as number : 0
+  localStorage.setItem(coinsKey, JSON.stringify(currCoins+newCoins))
+}
+

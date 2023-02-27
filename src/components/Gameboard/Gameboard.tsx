@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
 import { GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
-import "./Gameboard.css";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
+import {addCoins, addScore} from "../../storage";
+import "./Gameboard.css";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -28,6 +29,12 @@ export const Gameboard = ({
   };
   const finishGame = () => {
     setGameOn(false);
+    if(score > 0){
+      addScore(score);
+      const coins = Math.floor(score/10)
+      addCoins(coins)
+    }
+
   };
 
   const correctGuess = () => {
@@ -44,6 +51,7 @@ export const Gameboard = ({
   };
 
   const incorrectGuess = () => {
+    console.log(score)
     const penalty = 20;
     setFlippedCards([]);
     setIncorrectGuessCount(
