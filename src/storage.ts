@@ -2,7 +2,7 @@ const scoreKey = "score";
 const coinsKey = "coins";
 
 export const addScore = (score: number) => {
-  const maxScoresStored = 3;
+  const maxScoresStored = 10;
   const currScores = getScores();
   console.log(addElemToSortedArrayWithCap(currScores, score, maxScoresStored));
   localStorage.setItem(

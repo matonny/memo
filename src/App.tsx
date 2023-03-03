@@ -4,6 +4,7 @@ import "./App.css";
 import { Menu } from "./components/Menu/Menu";
 import { GameState } from "./components/types";
 import { Game } from "./components/Game/Game";
+import { Highscores } from "./components/Highscores/Highscores";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
 
@@ -14,10 +15,8 @@ export const App = () => {
         {currState == "game" && <Game changeState={setCurrState} />}
         {/* {currState == "customise" && (
           <Gameboard changeState={setCurrState} size={8} />
-        )}
-        {currState == "score" && (
-          <Gameboard changeState={setCurrState} size={8} />
         )} */}
+        {currState == "score" && <Highscores />}
       </header>
     </div>
   );
