@@ -40,12 +40,7 @@
   background: red;
   transform: rotateY(0.5turn);
 }
-.yellow {
-  background: yellow;
-}
-.pl {
-  background: linear-gradient(135deg, white 50%, rgb(255, 107, 107) 50%);
-}
+
 [role="button"]:focus .cardBack,
 [role="button"]:focus .cardFront {
   border: 5px solid white;

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
-import { GameMode, GameState } from "../types";
+import { Back, GameMode, GameState } from "../types";
 import "./Game.css";
 type GameProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
+  chosenBack: Back;
 };
-export const Game = ({ changeState }: GameProps) => {
+export const Game = ({ changeState, chosenBack }: GameProps) => {
   const minValue = 4;
   const maxValue = 20;
   const gameModes = ["color", "word", "number"] as GameMode[];
@@ -53,6 +54,7 @@ export const Game = ({ changeState }: GameProps) => {
         gameSettings
       ) : (
         <Gameboard
+          chosenBack={chosenBack}
           size={cardNumber}
           difficulty={currGameMode}
           changeState={changeState}

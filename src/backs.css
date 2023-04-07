@@ -1,0 +1,9 @@
+.yellow {
+  background: yellow;
+}
+.liliac {
+  background: rgb(220, 147, 220);
+}
+.pl {
+  background: linear-gradient(135deg, white 50%, rgb(255, 107, 107) 50%);
+}

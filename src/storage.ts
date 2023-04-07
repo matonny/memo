@@ -1,5 +1,14 @@
+import { backs, Back } from "./components/types";
+
 const scoreKey = "score";
 const coinsKey = "coins";
+const recentBackKey = "recentBack";
+const boughtBacksKey = "boughtCovers";
+
+export const initStorage = () => {};
+const isBack = (potentialBack: unknown): potentialBack is Back => {
+  return backs.filter((someBack) => someBack == potentialBack).length > 0;
+};
 
 export const addScore = (score: number) => {
   const maxScoresStored = 10;
@@ -12,6 +21,7 @@ export const addScore = (score: number) => {
     )
   );
 };
+
 export const getScores = () => {
   const scoreKey = "score";
   const rawStorage = localStorage.getItem(scoreKey);
@@ -21,21 +31,63 @@ export const getScores = () => {
   return parsedScores;
 };
 
-export const addCoins = (newCoins: number) => {
+export const getRecentBack = () => {
+  const defaultBack = "yellow";
+  const rawBack = localStorage.getItem(recentBackKey);
+  const parsedBack = rawBack ? JSON.parse(rawBack) : defaultBack;
+  const backCover = isBack(parsedBack);
+  return backCover ? parsedBack : defaultBack;
+};
+export const saveRecentBack = (recentBack: Back) => {
+  localStorage.setItem(coinsKey, JSON.stringify(recentBack));
+};
+export const getAvailableBacks = () => {
+  const rawBoughtBacks = localStorage.getItem(boughtBacksKey);
+  const parsedBoughtBacks = rawBoughtBacks ? JSON.parse(rawBoughtBacks) : [];
+  if (!Array.isArray(parsedBoughtBacks)) {
+    return [];
+  }
+  return parsedBoughtBacks.filter(isBack);
+};
+export const buyBackIfEnoughCoins = (newBack: Back, price: number = 50) => {
   const currCoins = getCoins();
-  localStorage.setItem(coinsKey, JSON.stringify(currCoins + newCoins));
+  if (currCoins - price < 0) {
+    alert("too pricy");
+    return;
+  }
+  console.log("xd");
+  removeCoins(price);
+  addBoughtBack(newBack);
+};
+const addBoughtBack = (newBack: Back) => {
+  const currBacks = getAvailableBacks();
+  localStorage.setItem(
+    boughtBacksKey,
+    JSON.stringify(currBacks.concat(newBack))
+  );
+};
+
+export const addCoins = (addedCoins: number) => {
+  const currCoins = getCoins();
+  localStorage.setItem(coinsKey, JSON.stringify(currCoins + addedCoins));
+};
+
+export const removeCoins = (removedCoins: number) => {
+  const currCoins = getCoins();
+  localStorage.setItem(coinsKey, JSON.stringify(currCoins - removedCoins));
 };
 export const getCoins = () => {
-  const rawStorage = localStorage.getItem(coinsKey);
-  const parsedCoins = rawStorage ? (JSON.parse(rawStorage) as number) : 0;
-  return parsedCoins;
+  const rawCoins = localStorage.getItem(coinsKey);
+  const parsedCoins = rawCoins ? parseFloat(rawCoins) : 0;
+  return isNaN(parsedCoins) ? 0 : parsedCoins;
 };
+
 const addElemToSortedArrayWithCap = (
   sortedArray: number[],
   numberToAdd: number,
   cap: number
 ) => {
-  if (sortedArray.length == 0) {
+  if (sortedArray.length === 0) {
     return [numberToAdd];
   }
   return sortedArray.reduce<number[]>((acc, currVal, index) => {
@@ -44,7 +96,8 @@ const addElemToSortedArrayWithCap = (
     }
     if (
       (currVal >= numberToAdd && sortedArray[index + 1] < numberToAdd) ||
-      (acc.length == sortedArray.length - 1 && index == sortedArray.length - 1)
+      (acc.length === sortedArray.length - 1 &&
+        index === sortedArray.length - 1)
     ) {
       return acc.concat([currVal, numberToAdd]);
     }

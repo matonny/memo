@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
-import { GameMode, GameState } from "../types";
+import { Back, GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
-import {addCoins, addScore} from "../../storage";
+import { addCoins, addScore } from "../../storage";
 import "./Gameboard.css";
 
 type GameboardProps = Readonly<{
   size: number;
+  chosenBack: Back;
   difficulty: GameMode;
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
@@ -16,6 +17,7 @@ type GameboardProps = Readonly<{
 export const Gameboard = ({
   size,
   changeState,
+  chosenBack,
   difficulty,
 }: GameboardProps) => {
   const checkGuess = () => {
@@ -29,12 +31,11 @@ export const Gameboard = ({
   };
   const finishGame = () => {
     setGameOn(false);
-    if(score > 0){
+    if (score > 0) {
       addScore(score);
-      const coins = Math.floor(score/10)
-      addCoins(coins)
+      const coins = Math.floor(score / 10);
+      addCoins(coins);
     }
-
   };
 
   const correctGuess = () => {
@@ -51,7 +52,7 @@ export const Gameboard = ({
   };
 
   const incorrectGuess = () => {
-    console.log(score)
+    console.log(score);
     const penalty = 20;
     setFlippedCards([]);
     setIncorrectGuessCount(
@@ -98,7 +99,7 @@ export const Gameboard = ({
               <Card
                 card={cardWithoutId}
                 color={difficulty == "color" ? cardWithoutId : undefined}
-                back="pl"
+                back={chosenBack}
                 flipped={currFlipped}
                 onClick={
                   !currFlipped && flippedCards.length < 2
