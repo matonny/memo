@@ -24,7 +24,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px solid black;
+  border: 5px solid white;
   border-radius: 20px;
   width: 150px;
   height: 150px;
@@ -43,7 +43,7 @@
 
 [role="button"]:focus .cardBack,
 [role="button"]:focus .cardFront {
-  border: 5px solid white;
+  border: 5px solid #0f2f62;
 }
 [role="button"]:focus {
   outline: none;

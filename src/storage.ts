@@ -2,7 +2,7 @@ import { backs, Back } from "./components/types";
 
 const scoreKey = "score";
 const coinsKey = "coins";
-const recentBackKey = "recentBack";
+const currentBackKey = "currentBack";
 const boughtBacksKey = "boughtCovers";
 
 export const initStorage = () => {};
@@ -31,15 +31,15 @@ export const getScores = () => {
   return parsedScores;
 };
 
-export const getRecentBack = () => {
+export const getCurrentBack = () => {
   const defaultBack = "yellow";
-  const rawBack = localStorage.getItem(recentBackKey);
+  const rawBack = localStorage.getItem(currentBackKey);
   const parsedBack = rawBack ? JSON.parse(rawBack) : defaultBack;
   const backCover = isBack(parsedBack);
   return backCover ? parsedBack : defaultBack;
 };
-export const saveRecentBack = (recentBack: Back) => {
-  localStorage.setItem(coinsKey, JSON.stringify(recentBack));
+export const saveCurrentBack = (recentBack: Back) => {
+  localStorage.setItem(currentBackKey, JSON.stringify(recentBack));
 };
 export const getAvailableBacks = () => {
   const rawBoughtBacks = localStorage.getItem(boughtBacksKey);
@@ -96,8 +96,7 @@ const addElemToSortedArrayWithCap = (
     }
     if (
       (currVal >= numberToAdd && sortedArray[index + 1] < numberToAdd) ||
-      (acc.length === sortedArray.length - 1 &&
-        index === sortedArray.length - 1)
+      (acc.length == sortedArray.length - 1 && index == sortedArray.length - 1)
     ) {
       return acc.concat([currVal, numberToAdd]);
     }

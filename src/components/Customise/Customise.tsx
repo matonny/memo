@@ -1,20 +1,24 @@
-import { useState } from "react";
-import { buyBackIfEnoughCoins, getAvailableBacks } from "../../storage";
+import { useEffect, useState } from "react";
+import {
+  buyBackIfEnoughCoins,
+  getAvailableBacks,
+  getCurrentBack,
+  saveCurrentBack,
+} from "../../storage";
 import { CardSelect } from "../CardSelect/CardSelect";
 import { Back, GameState, backs } from "../types";
 import "./Customise.css";
+import { Coins } from "../Coins/Coins";
 type CustomiseProps = Readonly<{
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
-  setCurrBack: React.Dispatch<React.SetStateAction<Back>>;
-  currBack: Back;
 }>;
-export const Customise = ({
-  changeState,
-  setCurrBack,
-  currBack,
-}: CustomiseProps) => {
+export const Customise = ({ changeState }: CustomiseProps) => {
   const [boughtBacks, setBoughtBacks] = useState(getAvailableBacks());
+  const [currentBack, setCurrentBack] = useState(getCurrentBack());
 
+  useEffect(() => {
+    saveCurrentBack(currentBack);
+  }, [currentBack]);
   const buyBack = (targetBack: Back) => {
     buyBackIfEnoughCoins(targetBack);
     setBoughtBacks(getAvailableBacks());
@@ -28,14 +32,15 @@ export const Customise = ({
               <CardSelect
                 back={back}
                 bought={boughtBacks.includes(back)}
-                selected={currBack === back}
+                selected={currentBack === back}
                 buy={() => buyBack(back)}
-                select={() => setCurrBack(back)}
+                select={() => setCurrentBack(back)}
               ></CardSelect>
             </li>
           );
         })}
       </ul>
+      <Coins></Coins>
       <button onClick={() => changeState("menu")}>Menu</button>
     </div>
   );

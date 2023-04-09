@@ -4,12 +4,11 @@ import { Back, GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
-import { addCoins, addScore } from "../../storage";
+import { addCoins, addScore, getCurrentBack } from "../../storage";
 import "./Gameboard.css";
 
 type GameboardProps = Readonly<{
   size: number;
-  chosenBack: Back;
   difficulty: GameMode;
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
@@ -17,9 +16,9 @@ type GameboardProps = Readonly<{
 export const Gameboard = ({
   size,
   changeState,
-  chosenBack,
   difficulty,
 }: GameboardProps) => {
+  const [currentBack, setCurrentBack] = useState(getCurrentBack);
   const checkGuess = () => {
     if (flippedCards.length == 2) {
       if (flippedCards[0].slice(0, -1) === flippedCards[1].slice(0, -1)) {
@@ -99,7 +98,7 @@ export const Gameboard = ({
               <Card
                 card={cardWithoutId}
                 color={difficulty == "color" ? cardWithoutId : undefined}
-                back={chosenBack}
+                back={currentBack}
                 flipped={currFlipped}
                 onClick={
                   !currFlipped && flippedCards.length < 2

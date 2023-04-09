@@ -18,12 +18,14 @@ export const CardSelect = ({
 }: CardSelectProps) => {
   return (
     <div className="cardContainer">
+      {selected && <div className="selected"></div>}
       <div className={`${back} box`}></div>
-      <h1>SIEMA</h1>
+
+      <p className="cardName">{back}</p>
       {!bought ? (
         <button onClick={buy}>Buy</button>
       ) : (
-        <button onClick={select} disabled={selected}>
+        <button className="select" onClick={select} disabled={selected}>
           Select
         </button>
       )}
