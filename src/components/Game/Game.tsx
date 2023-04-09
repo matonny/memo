@@ -17,27 +17,33 @@ export const Game = ({ changeState }: GameProps) => {
     setPlay(true);
   };
   const gameSettings = (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <input
-        type="range"
-        min={minValue}
-        max={maxValue}
-        value={cardNumber}
-        onChange={(e) => setCardNumber(e.target.valueAsNumber)}
-      />
-      <p>{cardNumber}</p>
+    <form className="gameSettingsForm" onSubmit={(e) => handleSubmit(e)}>
+      <p className="promptName">Number of cards:</p>
+      <label className="label">
+        <span className="labelDesc">{cardNumber}</span>
+        <input
+          type="range"
+          min={minValue}
+          max={maxValue}
+          value={cardNumber}
+          onChange={(e) => setCardNumber(e.target.valueAsNumber)}
+        />
+      </label>
+      <p className="promptName">Game mode: </p>
       <ul className="gameModesList">
         {gameModes.map((gameMode) => {
           return (
             <li className="gameModeOption" key={gameMode}>
-              <label>
+              <label className="label">
                 <input
                   name={gameMode}
                   type="radio"
                   value={gameMode}
+                  className="radioInput "
                   checked={currGameMode === gameMode}
                   onChange={(e) => setCurrGameMode(e.target.value as GameMode)}
                 />
+                <span className="customRadio"></span>
                 {gameMode}
               </label>
             </li>

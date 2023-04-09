@@ -6,6 +6,7 @@ import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";
 import "./Gameboard.css";
+import Confetti from "react-confetti";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -18,7 +19,6 @@ export const Gameboard = ({
   changeState,
   difficulty,
 }: GameboardProps) => {
-  const [currentBack, setCurrentBack] = useState(getCurrentBack);
   const checkGuess = () => {
     if (flippedCards.length == 2) {
       if (flippedCards[0].slice(0, -1) === flippedCards[1].slice(0, -1)) {
@@ -28,6 +28,7 @@ export const Gameboard = ({
     }
     setTimeout(incorrectGuess, 1000);
   };
+
   const finishGame = () => {
     setGameOn(false);
     if (score > 0) {
@@ -54,10 +55,6 @@ export const Gameboard = ({
     console.log(score);
     const penalty = 20;
     setFlippedCards([]);
-    setIncorrectGuessCount(
-      (prevIncorrectGuessCount) => prevIncorrectGuessCount + 1
-    );
-
     setCombo(0);
     setScore((prevScore) => prevScore - penalty);
   };
@@ -67,12 +64,13 @@ export const Gameboard = ({
     const selectedCards = shuffle(rawCards).slice(0, size);
     return shuffle(addIds(selectedCards));
   };
-  const [secondsPlayed, setSecondsPlayed] = useState(0);
+
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
+  const [currentBack, setCurrentBack] = useState(getCurrentBack);
   const [cards, setCards] = useState(prepareCards());
   const [gameOn, setGameOn] = useState(true);
-  const [incorrectGuessCount, setIncorrectGuessCount] = useState(0);
+
   const [combo, setCombo] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -87,7 +85,8 @@ export const Gameboard = ({
   return (
     <>
       <Timer updateScore={setScore} gameOn={gameOn} />
-      <p>{score}</p>
+      <p className="text">{gameOn ? " " : "You win!"}</p>
+      <p className="text">{score}</p>
       <ul className="gameboard">
         {cards.map((card) => {
           const currFlipped =
