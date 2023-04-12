@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
-import { Back, GameMode, GameState } from "../types";
+import { GameMode, GameState } from "../types";
 import { getMemoContent } from "../memoContent";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
@@ -11,14 +11,9 @@ import Confetti from "react-confetti";
 type GameboardProps = Readonly<{
   size: number;
   difficulty: GameMode;
-  changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
 
-export const Gameboard = ({
-  size,
-  changeState,
-  difficulty,
-}: GameboardProps) => {
+export const Gameboard = ({ size, difficulty }: GameboardProps) => {
   const checkGuess = () => {
     if (flippedCards.length == 2) {
       if (flippedCards[0].slice(0, -1) === flippedCards[1].slice(0, -1)) {

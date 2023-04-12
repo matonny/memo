@@ -9,6 +9,7 @@ import { CardSelect } from "../CardSelect/CardSelect";
 import { Back, GameState, backs } from "../types";
 import "./Customise.css";
 import { Coins } from "../Coins/Coins";
+import { Button } from "../Button/Button";
 type CustomiseProps = Readonly<{
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
@@ -41,7 +42,13 @@ export const Customise = ({ changeState }: CustomiseProps) => {
         })}
       </ul>
       <Coins></Coins>
-      <button onClick={() => changeState("menu")}>Menu</button>
+      <Button
+        onclick={() => {
+          changeState("menu");
+        }}
+        value="menu"
+        size="normal"
+      ></Button>
     </div>
   );
 };

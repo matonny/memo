@@ -1,4 +1,5 @@
 import "../../backs.css";
+import { Button } from "../Button/Button";
 import { Back } from "../types";
 import "./CardSelect.css";
 type CardSelectProps = Readonly<{
@@ -23,11 +24,9 @@ export const CardSelect = ({
 
       <p className="cardName">{back}</p>
       {!bought ? (
-        <button onClick={buy}>Buy</button>
+        <Button onclick={buy} value="buy" size="small"></Button>
       ) : (
-        <button className="select" onClick={select} disabled={selected}>
-          Select
-        </button>
+        <Button onclick={select} value="select" size="small"></Button>
       )}
     </div>
   );

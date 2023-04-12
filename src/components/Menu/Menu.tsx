@@ -12,7 +12,13 @@ export const Menu = ({ changeState }: MenuProps) => {
         {values.map((elem) => {
           return (
             <li key={elem}>
-              <Button onclick={changeState} value={elem} />
+              <Button
+                onclick={() => {
+                  changeState(elem);
+                }}
+                value={elem}
+                size="big"
+              />
             </li>
           );
         })}

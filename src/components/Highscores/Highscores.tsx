@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getScores } from "../../storage";
 import { GameState } from "../types";
 import "./Highscores.css";
+import { Button } from "../Button/Button";
 type highscoresProps = Readonly<{
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
@@ -22,7 +23,11 @@ export const Highscores = ({ changeState }: highscoresProps) => {
           );
         })}
       </ol>
-      <button onClick={() => changeState("menu")}>Menu</button>
+      <Button
+        size="normal"
+        value="Menu"
+        onclick={() => changeState("menu")}
+      ></Button>
     </div>
   );
 };

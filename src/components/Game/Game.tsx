@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
-import { Back, GameMode, GameState } from "../types";
+import { GameMode, GameState } from "../types";
 import "./Game.css";
+import { Button } from "../Button/Button";
 type GameProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 };
@@ -26,6 +27,8 @@ export const Game = ({ changeState }: GameProps) => {
           min={minValue}
           max={maxValue}
           value={cardNumber}
+          className="slider
+          "
           onChange={(e) => setCardNumber(e.target.valueAsNumber)}
         />
       </label>
@@ -39,6 +42,7 @@ export const Game = ({ changeState }: GameProps) => {
                   name={gameMode}
                   type="radio"
                   value={gameMode}
+                  id={gameMode}
                   className="radioInput "
                   checked={currGameMode === gameMode}
                   onChange={(e) => setCurrGameMode(e.target.value as GameMode)}
@@ -50,7 +54,6 @@ export const Game = ({ changeState }: GameProps) => {
           );
         })}
       </ul>
-      <button type="submit">PLAY</button>
     </form>
   );
   return (
@@ -58,13 +61,13 @@ export const Game = ({ changeState }: GameProps) => {
       {!play ? (
         gameSettings
       ) : (
-        <Gameboard
-          size={cardNumber}
-          difficulty={currGameMode}
-          changeState={changeState}
-        />
+        <Gameboard size={cardNumber} difficulty={currGameMode} />
       )}
-      <button onClick={() => changeState("menu")}>Menu</button>
+      <Button
+        onclick={() => changeState("menu")}
+        size="normal"
+        value="menu"
+      ></Button>
     </>
   );
 };
