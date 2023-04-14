@@ -1,7 +1,8 @@
+import { useContext } from "react";
 import backs from "../../backs.module.css";
 import { Button } from "../Button/Button";
-import { Back } from "../types";
 import styles from "./CardSelect.module.css";
+import { LightModeContext } from "../../hooks/lightModeContext";
 type CardSelectProps = Readonly<{
   back: string;
   bought: boolean;
@@ -17,10 +18,15 @@ export const CardSelect = ({
   select,
   selected,
 }: CardSelectProps) => {
+  const lightMode = useContext(LightModeContext);
   return (
-    <div className={styles.cardContainer}>
-      {selected && <div className={styles.selected}></div>}
-      <div className={`${backs[back]} ${styles.box}`}></div>
+    <div className={`${styles.cardContainer} ${styles[lightMode]}`}>
+      {selected && (
+        <div className={`${styles.selected} ${styles[lightMode]}`}></div>
+      )}
+      <div
+        className={`${backs[back]} ${styles.box} ${styles[lightMode]}`}
+      ></div>
 
       <p className="">{back}</p>
       {!bought ? (

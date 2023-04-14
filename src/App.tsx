@@ -13,6 +13,15 @@ export const App = () => {
   console.log(currState);
   return (
     <div className={`${styles.app} ${styles[currLightMode]}`}>
+      <button
+        onClick={() => {
+          currLightMode == "dark"
+            ? setCurrLightMode("light")
+            : setCurrLightMode("dark");
+        }}
+      >
+        switch
+      </button>
       <LightModeContext.Provider value={currLightMode}>
         {currState == "menu" && <Menu changeState={setCurrState} />}
         {currState == "game" && <Game changeState={setCurrState} />}

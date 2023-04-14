@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
 import { GameMode, GameState } from "../types";
 import styles from "./Game.module.css";
 import { Button } from "../Button/Button";
+import { LightModeContext } from "../../hooks/lightModeContext";
 type GameProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 };
@@ -13,12 +14,16 @@ export const Game = ({ changeState }: GameProps) => {
   const [cardNumber, setCardNumber] = useState(minValue);
   const [currGameMode, setCurrGameMode] = useState<GameMode>("color");
   const [play, setPlay] = useState(false);
+  const lightMode = useContext(LightModeContext);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setPlay(true);
   };
   const gameSettings = (
-    <form className={styles.gameSettingsForm} onSubmit={(e) => handleSubmit(e)}>
+    <form
+      className={`${styles.gameSettingsForm} ${styles[lightMode]}`}
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <p className={styles.promptName}>Number of cards:</p>
       <label className={styles.label}>
         <span className={styles.labelDesc}>{cardNumber}</span>
@@ -45,7 +50,9 @@ export const Game = ({ changeState }: GameProps) => {
                   checked={currGameMode === gameMode}
                   onChange={(e) => setCurrGameMode(e.target.value as GameMode)}
                 />
-                <span className={styles.customRadio}></span>
+                <span
+                  className={`${styles.customRadio} ${styles[lightMode]}`}
+                ></span>
                 {gameMode}
               </label>
             </li>
