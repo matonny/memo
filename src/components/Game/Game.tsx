@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
 import { GameMode, GameState } from "../types";
-import "./Game.css";
+import styles from "./Game.module.css";
 import { Button } from "../Button/Button";
 type GameProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
@@ -18,42 +18,41 @@ export const Game = ({ changeState }: GameProps) => {
     setPlay(true);
   };
   const gameSettings = (
-    <form className="gameSettingsForm" onSubmit={(e) => handleSubmit(e)}>
-      <p className="promptName">Number of cards:</p>
-      <label className="label">
-        <span className="labelDesc">{cardNumber}</span>
+    <form className={styles.gameSettingsForm} onSubmit={(e) => handleSubmit(e)}>
+      <p className={styles.promptName}>Number of cards:</p>
+      <label className={styles.label}>
+        <span className={styles.labelDesc}>{cardNumber}</span>
         <input
           type="range"
           min={minValue}
           max={maxValue}
           value={cardNumber}
-          className="slider
-          "
           onChange={(e) => setCardNumber(e.target.valueAsNumber)}
         />
       </label>
-      <p className="promptName">Game mode: </p>
-      <ul className="gameModesList">
+      <p className={styles.promptName}>Game mode: </p>
+      <ul className={styles.gameModesList}>
         {gameModes.map((gameMode) => {
           return (
-            <li className="gameModeOption" key={gameMode}>
-              <label className="label">
+            <li className={styles.gameModeOption} key={gameMode}>
+              <label className={styles.label}>
                 <input
                   name={gameMode}
                   type="radio"
                   value={gameMode}
                   id={gameMode}
-                  className="radioInput "
+                  className={styles.radioInput}
                   checked={currGameMode === gameMode}
                   onChange={(e) => setCurrGameMode(e.target.value as GameMode)}
                 />
-                <span className="customRadio"></span>
+                <span className={styles.customRadio}></span>
                 {gameMode}
               </label>
             </li>
           );
         })}
       </ul>
+      <Button onclick={() => {}} submit size="small" value="submit"></Button>
     </form>
   );
   return (

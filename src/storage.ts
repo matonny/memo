@@ -12,14 +12,10 @@ const isBack = (potentialBack: unknown): potentialBack is Back => {
 
 export const addScore = (score: number) => {
   const maxScoresStored = 10;
-  const currScores = getScores();
-  console.log(addElemToSortedArrayWithCap(currScores, score, maxScoresStored));
-  localStorage.setItem(
-    scoreKey,
-    JSON.stringify(
-      addElemToSortedArrayWithCap(currScores, score, maxScoresStored)
-    )
-  );
+  const currScores = getScores().concat([score]);
+  const bestScores = currScores.sort().reverse().slice(0, maxScoresStored);
+  console.log(bestScores);
+  localStorage.setItem(scoreKey, JSON.stringify(bestScores));
 };
 
 export const getScores = () => {
@@ -80,26 +76,4 @@ export const getCoins = () => {
   const rawCoins = localStorage.getItem(coinsKey);
   const parsedCoins = rawCoins ? parseFloat(rawCoins) : 0;
   return isNaN(parsedCoins) ? 0 : parsedCoins;
-};
-
-const addElemToSortedArrayWithCap = (
-  sortedArray: number[],
-  numberToAdd: number,
-  cap: number
-) => {
-  if (sortedArray.length === 0) {
-    return [numberToAdd];
-  }
-  return sortedArray.reduce<number[]>((acc, currVal, index) => {
-    if (index + 1 >= cap) {
-      return acc;
-    }
-    if (
-      (currVal >= numberToAdd && sortedArray[index + 1] < numberToAdd) ||
-      (acc.length == sortedArray.length - 1 && index == sortedArray.length - 1)
-    ) {
-      return acc.concat([currVal, numberToAdd]);
-    }
-    return acc.concat([currVal]);
-  }, []);
 };

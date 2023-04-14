@@ -1,7 +1,7 @@
-import "../../backs.css";
+import backs from "../../backs.module.css";
 import { Button } from "../Button/Button";
 import { Back } from "../types";
-import "./CardSelect.css";
+import styles from "./CardSelect.module.css";
 type CardSelectProps = Readonly<{
   back: string;
   bought: boolean;
@@ -18,11 +18,11 @@ export const CardSelect = ({
   selected,
 }: CardSelectProps) => {
   return (
-    <div className="cardContainer">
-      {selected && <div className="selected"></div>}
-      <div className={`${back} box`}></div>
+    <div className={styles.cardContainer}>
+      {selected && <div className={styles.selected}></div>}
+      <div className={`${backs[back]} ${styles.box}`}></div>
 
-      <p className="cardName">{back}</p>
+      <p className="">{back}</p>
       {!bought ? (
         <Button onclick={buy} value="buy" size="small"></Button>
       ) : (

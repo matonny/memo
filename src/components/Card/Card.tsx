@@ -1,4 +1,5 @@
-import "./Card.css";
+import styles from "./Card.module.css";
+import backs from "../../backs.module.css";
 
 type CardProps = Readonly<{
   card: string;
@@ -8,9 +9,9 @@ type CardProps = Readonly<{
   color?: string;
 }>;
 export const Card = ({ card, flipped, onClick, back, color }: CardProps) => {
-  const contentClass = "content " + (flipped ? "active" : "");
-  const frontClass = "cardFront";
-  const backClass = "cardBack " + back;
+  const contentClass = `${styles.content} ${flipped ? styles.active : ""}`;
+  const frontClass = styles.cardFront;
+  const backClass = `${styles.cardBack} ${backs[back]}`;
 
   const handleOnKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key == "Enter") {
@@ -23,7 +24,7 @@ export const Card = ({ card, flipped, onClick, back, color }: CardProps) => {
   };
   return (
     <div
-      className="card"
+      className={styles.card}
       tabIndex={0}
       aria-pressed={flipped}
       role="button"

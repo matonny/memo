@@ -7,7 +7,7 @@ import {
 } from "../../storage";
 import { CardSelect } from "../CardSelect/CardSelect";
 import { Back, GameState, backs } from "../types";
-import "./Customise.css";
+import styles from "./Customise.module.css";
 import { Coins } from "../Coins/Coins";
 import { Button } from "../Button/Button";
 type CustomiseProps = Readonly<{
@@ -26,7 +26,7 @@ export const Customise = ({ changeState }: CustomiseProps) => {
   };
   return (
     <div>
-      <ul className="backsList">
+      <ul className={styles.backsList}>
         {backs.map((back) => {
           return (
             <li key={back}>

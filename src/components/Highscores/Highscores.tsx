@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getScores } from "../../storage";
 import { GameState } from "../types";
-import "./Highscores.css";
+import styles from "./Highscores.module.css";
 import { Button } from "../Button/Button";
 type highscoresProps = Readonly<{
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
@@ -13,11 +13,11 @@ export const Highscores = ({ changeState }: highscoresProps) => {
     setScores(getScores);
   }, []);
   return (
-    <div className="container">
-      <ol className="highscoresList">
+    <div className={styles.container}>
+      <ol className={styles.highscoresList}>
         {scores.map((score, index) => {
           return (
-            <li className="highscoresItem" key={index}>
+            <li className={styles.highscoresItem} key={index}>
               {score}{" "}
             </li>
           );

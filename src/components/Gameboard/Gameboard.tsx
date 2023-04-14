@@ -5,8 +5,7 @@ import { getMemoContent } from "../memoContent";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";
-import "./Gameboard.css";
-import Confetti from "react-confetti";
+import styles from "./Gameboard.module.css";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -80,9 +79,9 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
   return (
     <>
       <Timer updateScore={setScore} gameOn={gameOn} />
-      <p className="text">{gameOn ? " " : "You win!"}</p>
-      <p className="text">{score}</p>
-      <ul className="gameboard">
+      <p className={styles.text}>{gameOn ? " " : "You win!"}</p>
+      <p className={styles.text}>{score}</p>
+      <ul className={styles.gameboard}>
         {cards.map((card) => {
           const currFlipped =
             flippedCards.includes(card) || guessedCards.includes(card);
