@@ -1,5 +1,7 @@
 import styles from "./Card.module.css";
 import backs from "../../backs.module.css";
+import { useContext } from "react";
+import { LightModeContext } from "../../hooks/lightModeContext";
 
 type CardProps = Readonly<{
   card: string;
@@ -9,15 +11,17 @@ type CardProps = Readonly<{
   color?: string;
 }>;
 export const Card = ({ card, flipped, onClick, back, color }: CardProps) => {
+  const lightMode = useContext(LightModeContext);
+
   const contentClass = `${styles.content} ${flipped ? styles.active : ""}`;
-  const frontClass = styles.cardFront;
+  const frontClass = `${styles.cardFront} ${styles[lightMode]}`;
   const backClass = `${styles.cardBack} ${backs[back]}`;
 
   const handleOnKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key == "Enter") {
+    if (event.key === "Enter") {
       onClick();
     }
-    if (event.key == " ") {
+    if (event.key === " ") {
       event.preventDefault();
       onClick();
     }

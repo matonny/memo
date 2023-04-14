@@ -5,10 +5,10 @@
   margin: 0 0 10px 0;
   box-shadow: 0px 0px 20px -5px #0f2f62;
 }
-.box.dark {
+.box.light {
   border-bottom: 4px solid #0f2f62;
 }
-.box.light {
+.box.dark {
   border-bottom: 4px solid #d9f0ff;
 }
 .cardContainer {
@@ -20,13 +20,13 @@
   flex-direction: column;
   align-items: center;
   margin: 10px;
-  box-shadow: 0px 10px 26px -10px #0f2f62;
-}
-.cardContainer.light {
-  background-color: #0f2f62;
+  background: transparent;
 }
 .cardContainer.dark {
-  background-color: #d9f0ff;
+  box-shadow: 0px 10px 26px -10px #d9f0ff;
+}
+.cardContainer.light {
+  box-shadow: 0px 10px 26px -10px #0f2f62;
 }
 .selected {
   position: absolute;
@@ -37,10 +37,10 @@
   writing-mode: vertical-lr;
   text-orientation: upright;
 }
-.selected.light {
+.selected.dark {
   background-color: #d9f0ff;
 }
-.selected.dark {
+.selected.light {
   background-color: #0f2f62;
 }
 .selected::after {
@@ -53,9 +53,10 @@
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
 }
-.dark::after {
+
+.light.selected::after {
   border-bottom: 25px solid #d9f0ff;
 }
-.light::after {
+.dark.selected::after {
   border-bottom: 25px solid #0f2f62;
 }

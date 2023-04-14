@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Card } from "../Card/Card";
-import { GameMode, GameState } from "../types";
+import { GameMode } from "../types";
 import { getMemoContent } from "../memoContent";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
@@ -13,13 +13,15 @@ type GameboardProps = Readonly<{
 }>;
 
 export const Gameboard = ({ size, difficulty }: GameboardProps) => {
-  const checkGuess = () => {
-    if (flippedCards.length == 2) {
-      if (flippedCards[0].slice(0, -1) === flippedCards[1].slice(0, -1)) {
-        correctGuess();
+  const checkGuess = (guess: string[]) => {
+    console.log(guess.length);
+    if (guess.length === 2) {
+      if (guess[0].slice(0, -1) === guess[1].slice(0, -1)) {
+        correctGuess(guess);
         return;
       }
     }
+    console.log("hello");
     setTimeout(incorrectGuess, 1000);
   };
 
@@ -32,50 +34,53 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
     }
   };
 
-  const correctGuess = () => {
-    setGuessedCards(guessedCards.concat(flippedCards));
+  const correctGuess = (guess: string[]) => {
+    const currGuessedCards = guessedCards.concat(guess);
+    setGuessedCards(currGuessedCards);
+    if (currGuessedCards.length === size * 2) {
+      finishGame();
+    }
     setFlippedCards([]);
     const rawGuessPoints = 50;
     const boostedGuessPoints =
       rawGuessPoints * Math.pow(2, combo) * getCardMultiplier(size);
-    console.log(boostedGuessPoints);
-    console.log(combo);
-    console.log(getCardMultiplier(size));
     setCombo((prevCombo) => prevCombo + 1);
     setScore((prevScore) => prevScore + boostedGuessPoints);
   };
 
   const incorrectGuess = () => {
-    console.log(score);
     const penalty = 20;
     setFlippedCards([]);
     setCombo(0);
     setScore((prevScore) => prevScore - penalty);
   };
 
-  const prepareCards = () => {
+  const prepareCards = useCallback(() => {
     const rawCards = getMemoContent(difficulty);
     const selectedCards = shuffle(rawCards).slice(0, size);
     return shuffle(addIds(selectedCards));
-  };
+  }, [difficulty, size]);
 
+  const handleClick = (isFlipped: boolean, card: string) => {
+    if (!isFlipped && flippedCards.length < 2) {
+      const currFliped = flippedCards.concat([card]);
+      setFlippedCards(currFliped);
+      if (currFliped.length === 2) {
+        checkGuess(currFliped);
+      }
+    }
+  };
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
-  const [currentBack, setCurrentBack] = useState(getCurrentBack);
-  const [cards, setCards] = useState(prepareCards());
+
+  const cards = useMemo(() => prepareCards(), [prepareCards]);
+  const currentBack = getCurrentBack();
+
   const [gameOn, setGameOn] = useState(true);
 
   const [combo, setCombo] = useState(0);
   const [score, setScore] = useState(0);
 
-  useEffect(() => {
-    if (flippedCards.length == 2) {
-      checkGuess();
-    }
-    if (guessedCards.length == size * 2) {
-      finishGame();
-    }
-  }, [flippedCards]);
   return (
     <>
       <Timer updateScore={setScore} gameOn={gameOn} />
@@ -90,16 +95,12 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
             <li key={card}>
               <Card
                 card={cardWithoutId}
-                color={difficulty == "color" ? cardWithoutId : undefined}
+                color={difficulty === "color" ? cardWithoutId : undefined}
                 back={currentBack}
                 flipped={currFlipped}
-                onClick={
-                  !currFlipped && flippedCards.length < 2
-                    ? () => {
-                        setFlippedCards(flippedCards.concat(card));
-                      }
-                    : () => {}
-                }
+                onClick={() => {
+                  handleClick(currFlipped, card);
+                }}
               />
             </li>
           );

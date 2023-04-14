@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { Gameboard } from "./components/Gameboard/Gameboard";
+import { useState } from "react";
 import styles from "./App.module.css";
 import { Menu } from "./components/Menu/Menu";
-import { GameState, Back } from "./components/types";
+import { GameState } from "./components/types";
 import { Game } from "./components/Game/Game";
 import { Highscores } from "./components/Highscores/Highscores";
 import { LightModeContext } from "./hooks/lightModeContext";
@@ -15,7 +14,7 @@ export const App = () => {
     <div className={`${styles.app} ${styles[currLightMode]}`}>
       <button
         onClick={() => {
-          currLightMode == "dark"
+          currLightMode === "dark"
             ? setCurrLightMode("light")
             : setCurrLightMode("dark");
         }}
@@ -23,10 +22,10 @@ export const App = () => {
         switch
       </button>
       <LightModeContext.Provider value={currLightMode}>
-        {currState == "menu" && <Menu changeState={setCurrState} />}
-        {currState == "game" && <Game changeState={setCurrState} />}
-        {currState == "customise" && <Customise changeState={setCurrState} />}
-        {currState == "score" && <Highscores changeState={setCurrState} />}
+        {currState === "menu" && <Menu changeState={setCurrState} />}
+        {currState === "game" && <Game changeState={setCurrState} />}
+        {currState === "customise" && <Customise changeState={setCurrState} />}
+        {currState === "score" && <Highscores changeState={setCurrState} />}
       </LightModeContext.Provider>
     </div>
   );

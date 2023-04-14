@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { getCoins } from "../../storage";
 
 export const Coins = () => {
-  const [coins, setCoins] = useState(getCoins());
+  const coins = getCoins();
   return <p>{coins} 💰</p>;
 };

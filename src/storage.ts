@@ -7,7 +7,7 @@ const boughtBacksKey = "boughtCovers";
 
 export const initStorage = () => {};
 const isBack = (potentialBack: unknown): potentialBack is Back => {
-  return backs.filter((someBack) => someBack == potentialBack).length > 0;
+  return backs.filter((someBack) => someBack === potentialBack).length > 0;
 };
 
 export const addScore = (score: number) => {
