@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { Card } from "../Card/Card";
 import { GameMode } from "../types";
 import { getMemoContent } from "../memoContent";
@@ -7,6 +7,7 @@ import { addIds, getCardMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";
 import styles from "./Gameboard.module.css";
 import Confetti from "react-confetti";
+import { LightModeContext } from "../../hooks/lightModeContext";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -76,6 +77,7 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
 
   const cards = useMemo(() => prepareCards(), [prepareCards]);
   const currentBack = getCurrentBack();
+  const lightMode = useContext(LightModeContext);
 
   const [gameOn, setGameOn] = useState(true);
 
@@ -84,9 +86,13 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
 
   return (
     <>
-      <Timer updateScore={setScore} gameOn={gameOn} />
-      <p className={styles.text}>{gameOn ? " " : "You win!"}</p>
-      <p className={styles.text}>{score}</p>
+      <div className={`${styles.infoBoard} ${styles[lightMode]}`}>
+        <div className={styles.infoLine}>
+          <Timer updateScore={setScore} gameOn={gameOn} />
+          <p className={styles.text}>{score}</p>
+        </div>
+        <p className={styles.text}>{gameOn ? " " : "You win!"}</p>
+      </div>
       <ul className={styles.gameboard}>
         {cards.map((card) => {
           const currFlipped =

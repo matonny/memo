@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import styles from "./Timer.module.css";
 type TimerProps = Readonly<{
   updateScore: React.Dispatch<React.SetStateAction<number>>;
   gameOn: boolean;
@@ -28,7 +28,7 @@ export const Timer = ({ updateScore, gameOn }: TimerProps) => {
   }, [gameOn, seconds, updateScore]);
 
   return (
-    <p className="timer">
+    <p className={styles.timer}>
       {minutes}:{seconds < 10 ? "0" + seconds : seconds}
     </p>
   );
