@@ -13,7 +13,14 @@ const isBack = (potentialBack: unknown): potentialBack is Back => {
 export const addScore = (score: number) => {
   const maxScoresStored = 10;
   const currScores = getScores().concat([score]);
-  const bestScores = currScores.sort().reverse().slice(0, maxScoresStored);
+  const bestScores = currScores
+    .sort((a, b) => {
+      console.log(a);
+      console.log(b);
+      return a - b;
+    })
+    .reverse()
+    .slice(0, maxScoresStored);
   console.log(bestScores);
   localStorage.setItem(scoreKey, JSON.stringify(bestScores));
 };
@@ -21,10 +28,11 @@ export const addScore = (score: number) => {
 export const getScores = () => {
   const scoreKey = "score";
   const rawStorage = localStorage.getItem(scoreKey);
-  const parsedScores = rawStorage
-    ? (JSON.parse(rawStorage) as number[])
-    : ([] as number[]);
-  return parsedScores;
+  const parsedScores = rawStorage ? JSON.parse(rawStorage) : [];
+  if (Array.isArray(parsedScores)) {
+    return parsedScores.map(parseFloat).filter((elem) => !isNaN(elem));
+  }
+  return [];
 };
 
 export const getCurrentBack = () => {
@@ -40,10 +48,10 @@ export const saveCurrentBack = (recentBack: Back) => {
 export const getAvailableBacks = () => {
   const rawBoughtBacks = localStorage.getItem(boughtBacksKey);
   const parsedBoughtBacks = rawBoughtBacks ? JSON.parse(rawBoughtBacks) : [];
-  if (!Array.isArray(parsedBoughtBacks)) {
-    return [];
+  if (Array.isArray(parsedBoughtBacks)) {
+    return parsedBoughtBacks.filter(isBack);
   }
-  return parsedBoughtBacks.filter(isBack);
+  return [];
 };
 export const buyBackIfEnoughCoins = (newBack: Back, price: number = 50) => {
   const currCoins = getCoins();
@@ -74,6 +82,6 @@ export const removeCoins = (removedCoins: number) => {
 };
 export const getCoins = () => {
   const rawCoins = localStorage.getItem(coinsKey);
-  const parsedCoins = rawCoins ? parseFloat(rawCoins) : 0;
+  const parsedCoins = rawCoins ? parseInt(rawCoins) : 0;
   return isNaN(parsedCoins) ? 0 : parsedCoins;
 };

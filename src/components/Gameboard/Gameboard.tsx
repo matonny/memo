@@ -27,10 +27,10 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
     setTimeout(incorrectGuess, 1000);
   };
 
-  const finishGame = () => {
+  const finishGame = (finishScore: number) => {
     setGameOn(false);
     if (score > 0) {
-      addScore(score);
+      addScore(finishScore);
       const coins = Math.floor(score / 10);
       addCoins(coins);
     }
@@ -39,15 +39,16 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
   const correctGuess = (guess: string[]) => {
     const currGuessedCards = guessedCards.concat(guess);
     setGuessedCards(currGuessedCards);
-    if (currGuessedCards.length === size * 2) {
-      finishGame();
-    }
     setFlippedCards([]);
     const rawGuessPoints = 50;
     const boostedGuessPoints =
       rawGuessPoints * Math.pow(2, combo) * getCardMultiplier(size);
     setCombo((prevCombo) => prevCombo + 1);
-    setScore((prevScore) => prevScore + boostedGuessPoints);
+    const currScore = score + boostedGuessPoints;
+    setScore(currScore);
+    if (currGuessedCards.length === size * 2) {
+      finishGame(currScore);
+    }
   };
 
   const incorrectGuess = () => {
@@ -113,7 +114,7 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
           );
         })}
       </ul>
-      {!gameOn && <Confetti />}
+      {!gameOn && <Confetti style={{ display: "sticky" }} />}
     </>
   );
 };
