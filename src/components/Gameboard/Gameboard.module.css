@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   list-style-type: none;
+  padding: 0;
 }
 .text {
   height: 20px;

@@ -6,6 +6,7 @@ import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";
 import styles from "./Gameboard.module.css";
+import Confetti from "react-confetti";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -106,6 +107,7 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
           );
         })}
       </ul>
+      {!gameOn && <Confetti />}
     </>
   );
 };

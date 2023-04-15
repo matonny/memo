@@ -3,7 +3,7 @@
   border-radius: 10px;
   margin: 20px 0;
   letter-spacing: 3px;
-
+  width: 100%;
   cursor: pointer;
 }
 .button:focus {
@@ -22,7 +22,7 @@
   color: #d9f0ff;
 }
 .big {
-  width: 250px;
+  max-width: 500px;
   height: 100px;
   font-size: 30px;
 }
@@ -30,7 +30,7 @@
   box-shadow: 20px 20px 0px #131519;
 }
 .normal {
-  width: 150px;
+  max-width: 150px;
   height: 60px;
   font-size: 20px;
 }
@@ -38,7 +38,7 @@
   box-shadow: 10px 10px 0px #131519;
 }
 .small {
-  width: 100px;
+  max-width: 100px;
   height: 40px;
   font-size: 10px;
   border-radius: 3px;

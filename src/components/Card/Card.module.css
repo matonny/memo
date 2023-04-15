@@ -37,8 +37,15 @@
 }
 
 .cardFront {
-  background: red;
   transform: rotateY(0.5turn);
+}
+.cardFront.dark {
+  background: #d9f0ff;
+  color: #0f2f62;
+}
+.cardFront.light {
+  background: #0f2f62;
+  color: #d9f0ff;
 }
 
 [role="button"]:focus .cardBack,
