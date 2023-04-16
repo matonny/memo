@@ -9,11 +9,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  fill: #0f2f62;
+  transition: 200ms;
+}
+.input:checked + label {
+  fill: #d9f0ff;
 }
 .input + label::before {
   content: "";
   height: 1em;
-  width: 2em;
+  width: 4em;
   border-radius: 1em;
   margin-right: 0.25em;
   border: 1px solid #0f2f62;

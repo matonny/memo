@@ -22,9 +22,8 @@
   color: #d9f0ff;
 }
 .big {
-  max-width: 500px;
-  height: 100px;
-  font-size: 30px;
+  width: 20em;
+  height: 4em;
 }
 .big:focus {
   box-shadow: 20px 20px 0px #131519;
