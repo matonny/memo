@@ -11,7 +11,6 @@ import { Coins } from "./components/Coins/Coins";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
   const [currLightMode, setCurrLightMode] = useState<"light" | "dark">("light");
-  const [darkMode, setDarkMode] = useState(false);
   console.log(currState);
   return (
     <div className={`${styles.app} ${styles[currLightMode]}`}>
