@@ -16,3 +16,9 @@
   background-color: #d9f0ff;
   color: #0f2f62;
 }
+.upperBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

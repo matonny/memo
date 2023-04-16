@@ -7,6 +7,7 @@ import { Highscores } from "./components/Highscores/Highscores";
 import { LightModeContext } from "./hooks/lightModeContext";
 import { Customise } from "./components/Customise/Customise";
 import { Toggle } from "./components/Toggle/Toggle";
+import { Coins } from "./components/Coins/Coins";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
   const [currLightMode, setCurrLightMode] = useState<"light" | "dark">("light");
@@ -14,14 +15,17 @@ export const App = () => {
   console.log(currState);
   return (
     <div className={`${styles.app} ${styles[currLightMode]}`}>
-      <Toggle
-        label="darkModeToggle"
-        onclick={() => {
-          currLightMode === "dark"
-            ? setCurrLightMode("light")
-            : setCurrLightMode("dark");
-        }}
-      ></Toggle>
+      <div className={styles.upperBar}>
+        <Coins></Coins>
+        <Toggle
+          label="darkModeToggle"
+          onclick={() => {
+            currLightMode === "dark"
+              ? setCurrLightMode("light")
+              : setCurrLightMode("dark");
+          }}
+        ></Toggle>
+      </div>
       <LightModeContext.Provider value={currLightMode}>
         {currState === "menu" && <Menu changeState={setCurrState} />}
         {currState === "game" && <Game changeState={setCurrState} />}
