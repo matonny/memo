@@ -28,6 +28,7 @@ export const Game = ({ changeState }: GameProps) => {
       <label className={styles.label}>
         <span className={styles.labelDesc}>{cardNumber}</span>
         <input
+          className={`${styles.slider} ${styles[lightMode]}`}
           type="range"
           min={minValue}
           max={maxValue}

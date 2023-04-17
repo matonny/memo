@@ -11,6 +11,7 @@
   justify-content: center;
   fill: #0f2f62;
   transition: 200ms;
+  cursor: pointer;
 }
 .input:checked + label {
   fill: #d9f0ff;

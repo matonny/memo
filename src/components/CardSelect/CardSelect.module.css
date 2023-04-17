@@ -3,7 +3,7 @@
   height: 200px;
   border-radius: 20px 20px 0 0;
   margin: 0 0 10px 0;
-  box-shadow: 0px 0px 20px -5px #0f2f62;
+  box-shadow: 0px 0px 20px -5px black;
 }
 .box.light {
   border-bottom: 4px solid #0f2f62;
@@ -19,18 +19,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
+  margin: 15px;
   background: transparent;
 }
 .cardContainer.dark {
-  box-shadow: 0px 10px 26px -10px #d9f0ff;
+  outline: 3px solid #d9f0ff;
 }
 .cardContainer.light {
-  box-shadow: 0px 10px 26px -10px #0f2f62;
+  outline: 3px solid #0f2f62;
 }
 .selected {
   position: absolute;
-  top: 176px;
+  top: 200px;
   left: 140px;
   height: 50px;
   width: 50px;

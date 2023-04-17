@@ -23,6 +23,10 @@ export const Toggle = ({ label, onclick }: ToggleProps) => {
           viewBox="0 0 489.242 489.242"
           xmlSpace="preserve"
         >
+          <title>Light bulb</title>
+          <desc>
+            Light bulb icon serving as an indicator of a dark mode switch
+          </desc>
           <g>
             <g>
               <path

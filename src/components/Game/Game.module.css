@@ -28,8 +28,20 @@
   flex-direction: column;
   align-items: center;
   border: 2px solid #d9f0ff;
+  border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
+}
+.slider:focus {
+  outline: none;
+  outline-offset: 3px;
+  border-radius: 20px;
+}
+.slider:focus.dark {
+  outline: 3px solid #d9f0ff;
+}
+.slider:focus.light {
+  outline: 3px solid #0f2f62;
 }
 .customRadio {
   left: -8px;

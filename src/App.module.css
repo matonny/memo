@@ -17,8 +17,10 @@
   color: #0f2f62;
 }
 .upperBar {
+  position: sticky;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  margin: 20px 0;
 }

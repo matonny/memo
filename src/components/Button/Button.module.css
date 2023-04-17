@@ -8,8 +8,14 @@
 }
 .button:focus {
   font-weight: 700;
-  outline: none;
-  box-shadow: 20px 20px 0px #131519;
+  outline: 3px solid;
+  outline-offset: 3px;
+}
+.button:focus.dark {
+  outline-color: white;
+}
+.button:focus.light {
+  outline-color: #0f2f62;
 }
 .dark {
   border: 2px solid #d9f0ff;
@@ -26,23 +32,16 @@
   height: 100px;
   font-size: 30px;
 }
-.big:focus {
-  box-shadow: 20px 20px 0px #131519;
-}
+
 .normal {
   max-width: 150px;
   height: 60px;
   font-size: 20px;
 }
-.normal:focus {
-  box-shadow: 10px 10px 0px #131519;
-}
+
 .small {
   max-width: 100px;
   height: 40px;
   font-size: 10px;
   border-radius: 3px;
-}
-.small:focus {
-  box-shadow: 5px 5px 0px #131519;
 }

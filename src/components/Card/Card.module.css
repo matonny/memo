@@ -25,7 +25,6 @@
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  border: 5px solid #0f2f62;
   width: 150px;
   height: 150px;
   position: absolute;
@@ -34,8 +33,16 @@
   right: 0;
   left: 0;
   backface-visibility: hidden;
+  outline-offset: 3px;
 }
-
+.cardFront.light,
+.cardBack.light {
+  border: 5px solid #0f2f62;
+}
+.cardFront.dark,
+.cardBack.dark {
+  border: 5px solid #d9f0ff;
+}
 .cardFront {
   transform: rotateY(0.5turn);
 }
@@ -48,10 +55,14 @@
   color: #d9f0ff;
 }
 
-[role="button"]:focus .cardBack,
-[role="button"]:focus .cardFront {
-  border: 10px solid white;
+.card:focus .cardBack.dark,
+.card:focus .cardFront.dark {
+  outline: 3px solid #d9f0ff;
 }
-[role="button"]:focus {
+.card:focus .cardBack.light,
+.card:focus .cardFront.light {
+  outline: 3px solid #0f2f62;
+}
+.card:focus {
   outline: none;
 }

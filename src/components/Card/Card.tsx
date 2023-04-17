@@ -15,7 +15,7 @@ export const Card = ({ card, flipped, onClick, back, color }: CardProps) => {
 
   const contentClass = `${styles.content} ${flipped ? styles.active : ""}`;
   const frontClass = `${styles.cardFront} ${styles[lightMode]}`;
-  const backClass = `${styles.cardBack} ${backs[back]}`;
+  const backClass = `${styles.cardBack} ${styles[lightMode]} ${backs[back]}`;
 
   const handleOnKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {

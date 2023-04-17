@@ -5,6 +5,7 @@ import { getMemoContent } from "../memoContent";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";
+
 import styles from "./Gameboard.module.css";
 import Confetti from "react-confetti";
 import { LightModeContext } from "../../hooks/lightModeContext";
@@ -114,7 +115,7 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
           );
         })}
       </ul>
-      {!gameOn && <Confetti style={{ display: "sticky" }} />}
+      {!gameOn && <Confetti />}
     </>
   );
 };
