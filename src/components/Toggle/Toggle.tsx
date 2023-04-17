@@ -17,6 +17,8 @@ export const Toggle = ({ label, onclick }: ToggleProps) => {
       <label htmlFor={label}>
         <svg
           version="1.1"
+          width="1.5em"
+          height="1.5em"
           id="Capa_1"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"

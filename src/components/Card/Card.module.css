@@ -61,7 +61,7 @@
 }
 .card:focus .cardBack.light,
 .card:focus .cardFront.light {
-  outline: 3px solid #0f2f62;
+  box-shadow: 0 0 0 2px #0f2f62;
 }
 .card:focus {
   outline: none;

@@ -19,7 +19,7 @@
 .input + label::before {
   content: "";
   height: 1em;
-  width: 4em;
+  width: 2em;
   border-radius: 1em;
   margin-right: 0.25em;
   border: 1px solid #0f2f62;
