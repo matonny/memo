@@ -8,6 +8,7 @@ type CardSelectProps = Readonly<{
   bought: boolean;
   buy: () => void;
   select: () => void;
+  price: number;
   selected: boolean;
 }>;
 
@@ -16,6 +17,7 @@ export const CardSelect = ({
   bought,
   buy,
   select,
+  price,
   selected,
 }: CardSelectProps) => {
   const lightMode = useContext(LightModeContext);
@@ -30,7 +32,10 @@ export const CardSelect = ({
 
       <p className="">{back}</p>
       {!bought ? (
-        <Button onclick={buy} value="buy" size="small"></Button>
+        <div>
+          <p>{price}</p>
+          <Button onclick={buy} value="buy" size="small"></Button>
+        </div>
       ) : (
         <Button onclick={select} value="select" size="small"></Button>
       )}

@@ -1,4 +1,5 @@
-import { backs, Back } from "./components/types";
+import { BackName } from "./components/types";
+import { backNames } from "./components/constants";
 
 const scoreKey = "score";
 const coinsKey = "coins";
@@ -6,8 +7,8 @@ const currentBackKey = "currentBack";
 const boughtBacksKey = "boughtCovers";
 
 export const initStorage = () => {};
-const isBack = (potentialBack: unknown): potentialBack is Back => {
-  return backs.filter((someBack) => someBack === potentialBack).length > 0;
+const isBack = (potentialBack: unknown): potentialBack is BackName => {
+  return backNames.filter((someBack) => someBack === potentialBack).length > 0;
 };
 
 export const addScore = (score: number) => {
@@ -42,7 +43,7 @@ export const getCurrentBack = () => {
   const backCover = isBack(parsedBack);
   return backCover ? parsedBack : defaultBack;
 };
-export const saveCurrentBack = (recentBack: Back) => {
+export const saveCurrentBack = (recentBack: BackName) => {
   localStorage.setItem(currentBackKey, JSON.stringify(recentBack));
 };
 export const getAvailableBacks = () => {
@@ -53,7 +54,7 @@ export const getAvailableBacks = () => {
   }
   return [];
 };
-export const buyBackIfEnoughCoins = (newBack: Back, price: number = 50) => {
+export const buyBackIfEnoughCoins = (newBack: BackName, price: number = 50) => {
   const currCoins = getCoins();
   if (currCoins - price < 0) {
     alert("too pricy");
@@ -63,7 +64,7 @@ export const buyBackIfEnoughCoins = (newBack: Back, price: number = 50) => {
   removeCoins(price);
   addBoughtBack(newBack);
 };
-const addBoughtBack = (newBack: Back) => {
+const addBoughtBack = (newBack: BackName) => {
   const currBacks = getAvailableBacks();
   localStorage.setItem(
     boughtBacksKey,

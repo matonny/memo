@@ -6,9 +6,10 @@ import {
   saveCurrentBack,
 } from "../../storage";
 import { CardSelect } from "../CardSelect/CardSelect";
-import { Back, GameState, backs } from "../types";
+import { BackName, GameState } from "../types";
 import styles from "./Customise.module.css";
 import { Button } from "../Button/Button";
+import { backs } from "../constants";
 type CustomiseProps = Readonly<{
   changeState: React.Dispatch<React.SetStateAction<GameState>>;
 }>;
@@ -19,22 +20,23 @@ export const Customise = ({ changeState }: CustomiseProps) => {
   useEffect(() => {
     saveCurrentBack(currentBack);
   }, [currentBack]);
-  const buyBack = (targetBack: Back) => {
+  const buyBack = (targetBack: BackName) => {
     buyBackIfEnoughCoins(targetBack);
     setBoughtBacks(getAvailableBacks());
   };
   return (
     <div>
       <ul className={styles.backsList}>
-        {backs.map((back) => {
+        {backs.map(({ backName, backPrice }) => {
           return (
-            <li key={back}>
+            <li key={backName}>
               <CardSelect
-                back={back}
-                bought={boughtBacks.includes(back)}
-                selected={currentBack === back}
-                buy={() => buyBack(back)}
-                select={() => setCurrentBack(back)}
+                back={backName}
+                bought={boughtBacks.includes(backName)}
+                selected={currentBack === backName}
+                buy={() => buyBack(backName)}
+                price={backPrice}
+                select={() => setCurrentBack(backName)}
               ></CardSelect>
             </li>
           );
