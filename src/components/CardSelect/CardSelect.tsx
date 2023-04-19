@@ -30,15 +30,18 @@ export const CardSelect = ({
         className={`${backs[back]} ${styles.box} ${styles[lightMode]}`}
       ></div>
 
-      <p className="">{back}</p>
-      {!bought ? (
-        <div>
-          <p>{price}</p>
-          <Button onclick={buy} value="buy" size="small"></Button>
-        </div>
-      ) : (
-        <Button onclick={select} value="select" size="small"></Button>
-      )}
+      <div className={styles.selectContent}>
+        {!bought ? (
+          <>
+            <p className={styles.text}>{price}</p>
+            <Button onclick={buy} value="unlock" size="small"></Button>
+          </>
+        ) : (
+          <>
+            <Button onclick={select} value="select" size="small"></Button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
