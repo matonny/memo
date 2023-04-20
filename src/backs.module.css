@@ -7,3 +7,6 @@
 .pl {
   background: linear-gradient(135deg, white 50%, rgb(255, 107, 107) 50%);
 }
+.grey {
+  background: rgb(69, 69, 69);
+}
