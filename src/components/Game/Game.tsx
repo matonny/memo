@@ -70,11 +70,13 @@ export const Game = ({ changeState }: GameProps) => {
       ) : (
         <Gameboard size={cardNumber} difficulty={currGameMode} />
       )}
-      <Button
-        onclick={() => changeState("menu")}
-        size="normal"
-        value="menu"
-      ></Button>
+      <div className={`${styles.lowerBar} ${styles[lightMode]}`}>
+        <Button
+          onclick={() => changeState("menu")}
+          size="normal"
+          value="menu"
+        ></Button>
+      </div>
     </>
   );
 };

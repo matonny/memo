@@ -23,6 +23,19 @@
 .promptName {
   margin: 15px;
 }
+.lowerBar {
+  position: sticky;
+  width: 100%;
+  bottom: 0px;
+}
+.lowerBar.dark {
+  background-color: #0f2f62;
+  border-top: 2px solid #d9f0ff;
+}
+.lowerBar.light {
+  background-color: #d9f0ff;
+  border-top: 2px solid #0f2f62;
+}
 .gameSettingsForm {
   display: flex;
   flex-direction: column;
