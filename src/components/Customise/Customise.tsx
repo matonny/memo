@@ -6,14 +6,10 @@ import {
   saveCurrentBack,
 } from "../../storage";
 import { CardSelect } from "../CardSelect/CardSelect";
-import { BackName, GameState } from "../types";
+import { BackName } from "../types";
 import styles from "./Customise.module.css";
-import { Button } from "../Button/Button";
 import { backs } from "../constants";
-type CustomiseProps = Readonly<{
-  changeState: React.Dispatch<React.SetStateAction<GameState>>;
-}>;
-export const Customise = ({ changeState }: CustomiseProps) => {
+export const Customise = () => {
   const [boughtBacks, setBoughtBacks] = useState(getAvailableBacks());
   const [currentBack, setCurrentBack] = useState(getCurrentBack());
 
@@ -42,13 +38,6 @@ export const Customise = ({ changeState }: CustomiseProps) => {
           );
         })}
       </ul>
-      <Button
-        onclick={() => {
-          changeState("menu");
-        }}
-        value="menu"
-        size="normal"
-      ></Button>
     </div>
   );
 };

@@ -8,9 +8,22 @@ import { LightModeContext } from "./hooks/lightModeContext";
 import { Customise } from "./components/Customise/Customise";
 import { Toggle } from "./components/Toggle/Toggle";
 import { Coins } from "./components/Coins/Coins";
+import { Button } from "./components/Button/Button";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
   const [currLightMode, setCurrLightMode] = useState<"light" | "dark">("light");
+  const statesWithMenu = (
+    <div>
+      {currState === "game" && <Game />}
+      {currState === "customise" && <Customise />}
+      {currState === "score" && <Highscores />}
+      <Button
+        size="normal"
+        value="Menu"
+        onclick={() => setCurrState("menu")}
+      ></Button>
+    </div>
+  );
   console.log(currState);
   return (
     <div className={`${styles.app} ${styles[currLightMode]}`}>
@@ -25,11 +38,13 @@ export const App = () => {
           }}
         ></Toggle>
       </div>
+      <div></div>
       <LightModeContext.Provider value={currLightMode}>
-        {currState === "menu" && <Menu changeState={setCurrState} />}
-        {currState === "game" && <Game changeState={setCurrState} />}
-        {currState === "customise" && <Customise changeState={setCurrState} />}
-        {currState === "score" && <Highscores changeState={setCurrState} />}
+        {currState === "menu" ? (
+          <Menu changeState={setCurrState} />
+        ) : (
+          statesWithMenu
+        )}
       </LightModeContext.Provider>
     </div>
   );

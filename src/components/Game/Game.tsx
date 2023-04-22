@@ -1,13 +1,10 @@
 import { useContext, useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
-import { GameMode, GameState } from "../types";
+import { GameMode } from "../types";
 import styles from "./Game.module.css";
 import { Button } from "../Button/Button";
 import { LightModeContext } from "../../hooks/lightModeContext";
-type GameProps = {
-  changeState: React.Dispatch<React.SetStateAction<GameState>>;
-};
-export const Game = ({ changeState }: GameProps) => {
+export const Game = () => {
   const minValue = 4;
   const maxValue = 20;
   const gameModes = ["color", "word", "number"] as GameMode[];
@@ -70,13 +67,6 @@ export const Game = ({ changeState }: GameProps) => {
       ) : (
         <Gameboard size={cardNumber} difficulty={currGameMode} />
       )}
-      <div className={`${styles.lowerBar} ${styles[lightMode]}`}>
-        <Button
-          onclick={() => changeState("menu")}
-          size="normal"
-          value="menu"
-        ></Button>
-      </div>
     </>
   );
 };
