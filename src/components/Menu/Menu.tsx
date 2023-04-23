@@ -1,5 +1,5 @@
 import { Button } from "../Button/Button";
-import { GameState } from "../types";
+import { GameState } from "../../types";
 import styles from "./Menu.module.css";
 type MenuProps = {
   changeState: React.Dispatch<React.SetStateAction<GameState>>;

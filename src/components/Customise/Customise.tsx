@@ -6,9 +6,9 @@ import {
   saveCurrentBack,
 } from "../../storage";
 import { CardSelect } from "../CardSelect/CardSelect";
-import { BackName } from "../types";
+import { BackName } from "../../types";
 import styles from "./Customise.module.css";
-import { backs } from "../constants";
+import { backs } from "../../constants";
 export const Customise = () => {
   const [boughtBacks, setBoughtBacks] = useState(getAvailableBacks());
   const [currentBack, setCurrentBack] = useState(getCurrentBack());

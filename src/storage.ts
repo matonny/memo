@@ -1,5 +1,5 @@
-import { BackName } from "./components/types";
-import { backNames } from "./components/constants";
+import { BackName } from "./types";
+import { backNames } from "./constants";
 
 const scoreKey = "score";
 const coinsKey = "coins";

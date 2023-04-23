@@ -1,7 +1,7 @@
 import { useCallback, useContext, useMemo, useState } from "react";
 import { Card } from "../Card/Card";
-import { GameMode } from "../types";
-import { getMemoContent } from "../constants";
+import { GameMode } from "../../types";
+import { getMemoContent } from "../../constants";
 import { Timer } from "../Timer/Timer";
 import { addIds, getCardMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";

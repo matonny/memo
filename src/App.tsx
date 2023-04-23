@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./App.module.css";
 import { Menu } from "./components/Menu/Menu";
-import { GameState } from "./components/types";
+import { GameState } from "./types";
 import { Game } from "./components/Game/Game";
 import { Highscores } from "./components/Highscores/Highscores";
 import { LightModeContext } from "./hooks/lightModeContext";

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Gameboard } from "../Gameboard/Gameboard";
-import { GameMode } from "../types";
+import { GameMode } from "../../types";
 import styles from "./Game.module.css";
 import { Button } from "../Button/Button";
 import { LightModeContext } from "../../hooks/lightModeContext";
