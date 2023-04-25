@@ -28,26 +28,28 @@ export const App = () => {
   );
   console.log(currState);
   return (
-    <div className={`${styles.app} ${styles[currLightMode]}`}>
-      <div className={styles.upperBar}>
-        <Coins></Coins>
-        <Toggle
-          label="darkModeToggle"
-          onclick={() => {
-            currLightMode === "dark"
-              ? setCurrLightMode("light")
-              : setCurrLightMode("dark");
-          }}
-        ></Toggle>
+    <div className={`${styles.appContainer} ${styles[currLightMode]}`}>
+      <div className={`${styles.app} ${styles[currLightMode]}`}>
+        <div className={styles.upperBar}>
+          <Coins></Coins>
+          <Toggle
+            label="darkModeToggle"
+            onclick={() => {
+              currLightMode === "dark"
+                ? setCurrLightMode("light")
+                : setCurrLightMode("dark");
+            }}
+          ></Toggle>
+        </div>
+        <div></div>
+        <LightModeContext.Provider value={currLightMode}>
+          {currState === "menu" ? (
+            <Menu changeState={setCurrState} />
+          ) : (
+            statesWithMenu
+          )}
+        </LightModeContext.Provider>
       </div>
-      <div></div>
-      <LightModeContext.Provider value={currLightMode}>
-        {currState === "menu" ? (
-          <Menu changeState={setCurrState} />
-        ) : (
-          statesWithMenu
-        )}
-      </LightModeContext.Provider>
     </div>
   );
 };
