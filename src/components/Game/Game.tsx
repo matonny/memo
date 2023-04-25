@@ -11,21 +11,21 @@ export const Game = () => {
   const [cardNumber, setCardNumber] = useState(minValue);
   const [currGameMode, setCurrGameMode] = useState<GameMode>("color");
   const [play, setPlay] = useState(false);
-  const lightMode = useContext(LightModeContext);
+  const darkMode = useContext(LightModeContext);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setPlay(true);
   };
   const gameSettings = (
     <form
-      className={`${styles.gameSettingsForm} ${styles[lightMode]}`}
+      className={`${styles.gameSettingsForm} ${darkMode ? styles.dark : ""}`}
       onSubmit={(e) => handleSubmit(e)}
     >
       <p className={styles.promptName}>Number of cards:</p>
       <label className={styles.label}>
         <span className={styles.labelDesc}>{cardNumber}</span>
         <input
-          className={`${styles.slider} ${styles[lightMode]}`}
+          className={`${styles.slider} ${darkMode ? styles.dark : ""}`}
           type="range"
           min={minValue}
           max={maxValue}
@@ -49,7 +49,9 @@ export const Game = () => {
                   onChange={(e) => setCurrGameMode(e.target.value as GameMode)}
                 />
                 <span
-                  className={`${styles.customRadio} ${styles[lightMode]}`}
+                  className={`${styles.customRadio} ${
+                    darkMode ? styles.dark : ""
+                  }`}
                 ></span>
                 {gameMode}
               </label>

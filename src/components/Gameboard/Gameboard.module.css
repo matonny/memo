@@ -20,17 +20,16 @@
   width: 100%;
   z-index: 2;
   top: 0;
+  background-color: #d9f0ff;
+  color: #0f2f62;
+  border-bottom: 4px solid #0f2f62;
 }
 .infoBoard.dark {
   background-color: #0f2f62;
   color: #d9f0ff;
   border-bottom: 4px solid #d9f0ff;
 }
-.infoBoard.light {
-  background-color: #d9f0ff;
-  color: #0f2f62;
-  border-bottom: 4px solid #0f2f62;
-}
+
 .infoLine {
   display: flex;
   flex-direction: row;

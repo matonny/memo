@@ -34,9 +34,6 @@
   left: 0;
   backface-visibility: hidden;
   outline-offset: 3px;
-}
-.cardFront.light,
-.cardBack.light {
   border: 5px solid #0f2f62;
 }
 .cardFront.dark,
@@ -45,22 +42,20 @@
 }
 .cardFront {
   transform: rotateY(0.5turn);
+  background: #0f2f62;
+  color: #d9f0ff;
 }
 .cardFront.dark {
   background: #d9f0ff;
   color: #0f2f62;
-}
-.cardFront.light {
-  background: #0f2f62;
-  color: #d9f0ff;
 }
 
 .card:focus .cardBack.dark,
 .card:focus .cardFront.dark {
   outline: 3px solid #d9f0ff;
 }
-.card:focus .cardBack.light,
-.card:focus .cardFront.light {
+.card:focus .cardBack,
+.card:focus .cardFront {
   outline: 3px solid #0f2f62;
 }
 .card:focus {

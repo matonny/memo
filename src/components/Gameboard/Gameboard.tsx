@@ -3,7 +3,7 @@ import { Card } from "../Card/Card";
 import { GameMode } from "../../types";
 import { getMemoContent } from "../../constants";
 import { Timer } from "../Timer/Timer";
-import { addIds, getCardMultiplier, shuffle } from "../../utils";
+import { addIds, getSizeMultiplier, shuffle } from "../../utils";
 import { addCoins, addScore, getCurrentBack } from "../../storage";
 
 import styles from "./Gameboard.module.css";
@@ -42,8 +42,9 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
     setGuessedCards(currGuessedCards);
     setFlippedCards([]);
     const rawGuessPoints = 50;
+    const comboBonus = 10;
     const boostedGuessPoints =
-      rawGuessPoints * Math.pow(2, combo) * getCardMultiplier(size);
+      (rawGuessPoints + comboBonus * combo) * getSizeMultiplier(size);
     setCombo((prevCombo) => prevCombo + 1);
     const currScore = score + boostedGuessPoints;
     setScore(currScore);
@@ -79,23 +80,25 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
 
   const cards = useMemo(() => prepareCards(), [prepareCards]);
   const currentBack = getCurrentBack();
-  const lightMode = useContext(LightModeContext);
+  const darkMode = useContext(LightModeContext);
 
   const [gameOn, setGameOn] = useState(true);
 
   const [combo, setCombo] = useState(0);
   const [score, setScore] = useState(0);
 
+  const winningMessage = `You win and get ${
+    score > 0 ? Math.floor(score / 10) : 0
+  } coins!`;
+
   return (
     <>
-      <div className={`${styles.infoBoard} ${styles[lightMode]}`}>
+      <div className={`${styles.infoBoard} ${darkMode ? styles.dark : ""}`}>
         <div className={styles.infoLine}>
           <Timer updateScore={setScore} gameOn={gameOn} />
           <p className={styles.text}>{score}</p>
         </div>
-        <p className={styles.text}>
-          {gameOn ? " " : `You win and get ${Math.floor(score / 10)} coins!`}
-        </p>
+        <p className={styles.text}>{gameOn ? " " : winningMessage}</p>
       </div>
       <ul className={styles.gameboard}>
         {cards.map((card) => {

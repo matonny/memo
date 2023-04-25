@@ -3,6 +3,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #d9f0ff;
+  color: #0f2f62;
 }
 .app {
   width: 100%;
@@ -14,16 +16,12 @@
   font-size: calc(10px + 2vmin);
   padding: 0;
   margin: auto;
-  color: white;
 }
 .dark {
   background-color: #0f2f62;
   color: #d9f0ff;
 }
-.light {
-  background-color: #d9f0ff;
-  color: #0f2f62;
-}
+
 .upperBar {
   position: sticky;
   display: flex;
@@ -41,11 +39,9 @@
   max-width: 100%;
   position: sticky;
   bottom: 0;
-  border-top: 4px solid;
+  border-top: 4px solid #0f2f62;
 }
-.lowerBar.light {
-  border-top-color: #0f2f62;
-}
+
 .lowerBar.dark {
   border-top-color: #d9f0ff;
 }

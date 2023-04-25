@@ -27,49 +27,49 @@
   position: sticky;
   width: 100%;
   bottom: 0px;
+  background-color: #d9f0ff;
+  border-top: 2px solid #0f2f62;
 }
 .lowerBar.dark {
   background-color: #0f2f62;
   border-top: 2px solid #d9f0ff;
 }
-.lowerBar.light {
-  background-color: #d9f0ff;
-  border-top: 2px solid #0f2f62;
-}
 .gameSettingsForm {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid #d9f0ff;
+  border: 2px solid #0f2f62;
   border-radius: 20px;
   padding: 20px;
   max-width: 250px;
   margin: 0 auto 20px auto;
 }
+.gameSettingsForm.dark {
+  border: 2px solid #d9f0ff;
+}
 .slider:focus {
   outline: none;
   outline-offset: 3px;
   border-radius: 20px;
+  outline: 3px solid #0f2f62;
 }
 .slider:focus.dark {
   outline: 3px solid #d9f0ff;
 }
-.slider:focus.light {
-  outline: 3px solid #0f2f62;
-}
+
 .customRadio {
   left: -8px;
   cursor: pointer;
   width: 17px;
   height: 17px;
-  border: 2px solid white;
+  border: 2px solid #0f2f62;
   border-radius: 50%;
   display: inline-block;
   position: relative;
   z-index: 1;
 }
-.light {
-  border-color: #0f2f62;
+.customRadio.dark {
+  border-color: #d9f0ff;
 }
 .customRadio::after {
   content: "";
@@ -84,12 +84,10 @@
   opacity: 0;
   transition: opacity 0.2s;
   z-index: 1;
-}
-.dark::after {
-  background: #d9f0ff;
-}
-.light::after {
   background: #0f2f62;
+}
+.customRadio.dark::after {
+  background: #d9f0ff;
 }
 .customRadio::before {
   content: "";
@@ -106,20 +104,19 @@
   opacity: 0;
   transition: opacity 0.2s;
   z-index: -1;
-}
-.dark::before {
-  border-color: #d9f0ff;
-}
-.light::before {
   border-color: #0f2f62;
 }
+.customRadio.dark::before {
+  border-color: #d9f0ff;
+}
+
 .radioInput {
   appearance: none;
 }
-.radioInput:checked + .light {
+.radioInput:checked + .customRadio {
   border: 2px solid #0f2f62;
 }
-.radioInput:checked + .dark {
+.radioInput:checked + .customRadio.dark {
   border: 2px solid #d9f0ff;
 }
 .radioInput:checked + .customRadio::after,

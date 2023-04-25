@@ -16,9 +16,13 @@ export const Customise = () => {
   useEffect(() => {
     saveCurrentBack(currentBack);
   }, [currentBack]);
-  const buyBack = (targetBack: BackName) => {
-    buyBackIfEnoughCoins(targetBack);
+  const buyBack = (targetBack: BackName, backPrice: number) => {
+    if (!buyBackIfEnoughCoins(targetBack, backPrice)) {
+      alert("Not enough coins!");
+      return false;
+    }
     setBoughtBacks(getAvailableBacks());
+    return true;
   };
   return (
     <div>
@@ -30,7 +34,7 @@ export const Customise = () => {
                 back={backName}
                 bought={boughtBacks.includes(backName)}
                 selected={currentBack === backName}
-                buy={() => buyBack(backName)}
+                buy={() => buyBack(backName, backPrice)}
                 price={backPrice}
                 select={() => setCurrentBack(backName)}
               ></CardSelect>

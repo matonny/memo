@@ -64,9 +64,15 @@ export const getMemoContent = (gameMode: GameMode) => {
   }
 };
 
-export const backNames = ["liliac", "yellow", "grey", "pl"] as const;
+export const backNames = [
+  "yellow",
+  "liliac",
+  "grey",
+  "transparent",
+  "pl",
+] as const;
 
-const backPrices = [50, 50, 50, 100];
+const backPrices = [50, 50, 50, 50, 100];
 
 export const backs = backNames.map((elem, index) => {
   return { backName: elem, backPrice: backPrices[index] };

@@ -11,11 +11,13 @@ type CardProps = Readonly<{
   color?: string;
 }>;
 export const Card = ({ card, flipped, onClick, back, color }: CardProps) => {
-  const lightMode = useContext(LightModeContext);
+  const darkMode = useContext(LightModeContext);
 
   const contentClass = `${styles.content} ${flipped ? styles.active : ""}`;
-  const frontClass = `${styles.cardFront} ${styles[lightMode]}`;
-  const backClass = `${styles.cardBack} ${styles[lightMode]} ${backs[back]}`;
+  const frontClass = `${styles.cardFront} ${darkMode ? styles.dark : ""}`;
+  const backClass = `${styles.cardBack} ${darkMode ? styles.dark : ""} ${
+    backs[back]
+  }`;
 
   const handleOnKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {

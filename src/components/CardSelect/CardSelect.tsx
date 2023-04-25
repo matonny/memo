@@ -6,7 +6,7 @@ import { LightModeContext } from "../../hooks/lightModeContext";
 type CardSelectProps = Readonly<{
   back: string;
   bought: boolean;
-  buy: () => void;
+  buy: () => boolean;
   select: () => void;
   price: number;
   selected: boolean;
@@ -20,21 +20,33 @@ export const CardSelect = ({
   price,
   selected,
 }: CardSelectProps) => {
-  const lightMode = useContext(LightModeContext);
+  const darkMode = useContext(LightModeContext);
   return (
-    <div className={`${styles.cardContainer} ${styles[lightMode]}`}>
+    <div className={`${styles.cardContainer} ${darkMode ? styles.dark : ""}`}>
       {selected && (
-        <div className={`${styles.selected} ${styles[lightMode]}`}></div>
+        <div
+          className={`${styles.selected} ${darkMode ? styles.dark : ""}`}
+        ></div>
       )}
       <div
-        className={`${backs[back]} ${styles.box} ${styles[lightMode]}`}
+        className={`${backs[back]} ${styles.box} ${
+          darkMode ? styles.dark : ""
+        }`}
       ></div>
 
       <div className={styles.selectContent}>
         {!bought ? (
           <>
             <p className={styles.text}>{price}</p>
-            <Button onclick={buy} value="unlock" size="small"></Button>
+            <Button
+              onclick={() => {
+                if (buy()) {
+                  select();
+                }
+              }}
+              value="unlock"
+              size="small"
+            ></Button>
           </>
         ) : (
           <>

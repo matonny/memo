@@ -14,7 +14,7 @@ export const addIds = (cards: string[]) => {
   );
 };
 
-export const getCardMultiplier = (cardCount: number) => {
+export const getSizeMultiplier = (cardCount: number) => {
   const gradeOneMultiplier = 1;
   const gradeTwoMultiplier = 1.25;
   const gradeThreeMultiplier = 2;

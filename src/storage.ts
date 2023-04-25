@@ -50,19 +50,19 @@ export const getAvailableBacks = () => {
   const rawBoughtBacks = localStorage.getItem(boughtBacksKey);
   const parsedBoughtBacks = rawBoughtBacks ? JSON.parse(rawBoughtBacks) : [];
   if (Array.isArray(parsedBoughtBacks)) {
-    return parsedBoughtBacks.filter(isBack);
+    return parsedBoughtBacks.filter(isBack).concat(["yellow"]);
   }
-  return [];
+  return ["yellow"];
 };
 export const buyBackIfEnoughCoins = (newBack: BackName, price: number = 50) => {
   const currCoins = getCoins();
   if (currCoins - price < 0) {
     alert("too pricy");
-    return;
+    return false;
   }
-  console.log("xd");
   removeCoins(price);
   addBoughtBack(newBack);
+  return true;
 };
 const addBoughtBack = (newBack: BackName) => {
   const currBacks = getAvailableBacks();

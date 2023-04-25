@@ -9,12 +9,14 @@ type ButtonProps = Readonly<{
   submit?: boolean;
 }>;
 export const Button = ({ value, onclick, size, submit }: ButtonProps) => {
-  const lightMode = useContext(LightModeContext);
+  const darkMode = useContext(LightModeContext);
   return (
     <button
       name={value}
       type={submit ? "submit" : "button"}
-      className={`${styles.button} ${styles[size]} ${styles[lightMode]}`}
+      className={`${styles.button} ${styles[size]} ${
+        darkMode ? styles.dark : ""
+      }`}
       aria-pressed="false"
       onClick={onclick}
     >

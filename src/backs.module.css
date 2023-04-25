@@ -10,3 +10,6 @@
 .grey {
   background: rgb(69, 69, 69);
 }
+.transparent {
+  background: transparent;
+}

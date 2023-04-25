@@ -11,13 +11,13 @@ import { Coins } from "./components/Coins/Coins";
 import { Button } from "./components/Button/Button";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
-  const [currLightMode, setCurrLightMode] = useState<"light" | "dark">("light");
+  const [darkMode, setDarkMode] = useState(false);
   const statesWithMenu = (
     <div className={styles.container}>
       {currState === "game" && <Game />}
       {currState === "customise" && <Customise />}
       {currState === "score" && <Highscores />}
-      <div className={`${styles.lowerBar} ${styles[currLightMode]}`}>
+      <div className={`${styles.lowerBar} ${darkMode ? styles.dark : ""}`}>
         <Button
           size="normal"
           value="Menu"
@@ -28,21 +28,19 @@ export const App = () => {
   );
   console.log(currState);
   return (
-    <div className={`${styles.appContainer} ${styles[currLightMode]}`}>
-      <div className={`${styles.app} ${styles[currLightMode]}`}>
+    <div className={`${styles.appContainer} ${darkMode ? styles.dark : ""}`}>
+      <div className={`${styles.app} ${darkMode ? styles.dark : ""}`}>
         <div className={styles.upperBar}>
           <Coins></Coins>
           <Toggle
             label="darkModeToggle"
             onclick={() => {
-              currLightMode === "dark"
-                ? setCurrLightMode("light")
-                : setCurrLightMode("dark");
+              setDarkMode((prevDarkMode) => !prevDarkMode);
             }}
           ></Toggle>
         </div>
         <div></div>
-        <LightModeContext.Provider value={currLightMode}>
+        <LightModeContext.Provider value={darkMode}>
           {currState === "menu" ? (
             <Menu changeState={setCurrState} />
           ) : (
