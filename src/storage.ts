@@ -75,11 +75,13 @@ const addBoughtBack = (newBack: BackName) => {
 export const addCoins = (addedCoins: number) => {
   const currCoins = getCoins();
   localStorage.setItem(coinsKey, JSON.stringify(currCoins + addedCoins));
+  window.dispatchEvent(new Event("updated-coins"));
 };
 
 export const removeCoins = (removedCoins: number) => {
   const currCoins = getCoins();
   localStorage.setItem(coinsKey, JSON.stringify(currCoins - removedCoins));
+  window.dispatchEvent(new Event("updated-coins"));
 };
 export const getCoins = () => {
   const rawCoins = localStorage.getItem(coinsKey);

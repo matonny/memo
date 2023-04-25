@@ -4,8 +4,12 @@
   justify-content: center;
 }
 .highscoresList {
-  padding-left: 0;
+  list-style-type: decimal-leading-zero;
+  list-style-position: inside;
+  max-width: 100px;
+  margin: auto;
+  padding: 10px 0;
 }
 .highscoresItem {
-  padding-left: none;
+  padding-left: 0;
 }
