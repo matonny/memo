@@ -32,7 +32,7 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
     setGameOn(false);
     if (score > 0) {
       addScore(finishScore);
-      const coins = Math.floor(score / 10);
+      const coins = Math.floor(finishScore / 10);
       addCoins(coins);
     }
   };
@@ -93,7 +93,9 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
           <Timer updateScore={setScore} gameOn={gameOn} />
           <p className={styles.text}>{score}</p>
         </div>
-        <p className={styles.text}>{gameOn ? " " : "You win!"}</p>
+        <p className={styles.text}>
+          {gameOn ? " " : `You win and get ${Math.floor(score / 10)} coins!`}
+        </p>
       </div>
       <ul className={styles.gameboard}>
         {cards.map((card) => {

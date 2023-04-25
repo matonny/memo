@@ -41,7 +41,7 @@
   max-width: 100%;
   position: sticky;
   bottom: 0;
-  border-top: 3px solid;
+  border-top: 4px solid;
 }
 .lowerBar.light {
   border-top-color: #0f2f62;
