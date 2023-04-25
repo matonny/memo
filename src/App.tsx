@@ -13,15 +13,17 @@ export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
   const [currLightMode, setCurrLightMode] = useState<"light" | "dark">("light");
   const statesWithMenu = (
-    <div>
+    <div className={styles.container}>
       {currState === "game" && <Game />}
       {currState === "customise" && <Customise />}
       {currState === "score" && <Highscores />}
-      <Button
-        size="normal"
-        value="Menu"
-        onclick={() => setCurrState("menu")}
-      ></Button>
+      <div className={`${styles.lowerBar} ${styles[currLightMode]}`}>
+        <Button
+          size="normal"
+          value="Menu"
+          onclick={() => setCurrState("menu")}
+        ></Button>
+      </div>
     </div>
   );
   console.log(currState);
