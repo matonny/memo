@@ -9,6 +9,7 @@ import { addCoins, addScore, getCurrentBack } from "../../storage";
 import styles from "./Gameboard.module.css";
 import Confetti from "react-confetti";
 import { LightModeContext } from "../../hooks/lightModeContext";
+import { useWindowSize } from "react-use";
 
 type GameboardProps = Readonly<{
   size: number;
@@ -75,6 +76,8 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
       }
     }
   };
+  const { width, height } = useWindowSize();
+
   const [flippedCards, setFlippedCards] = useState<string[]>([]);
   const [guessedCards, setGuessedCards] = useState<string[]>([]);
 
@@ -120,7 +123,7 @@ export const Gameboard = ({ size, difficulty }: GameboardProps) => {
           );
         })}
       </ul>
-      {!gameOn && <Confetti />}
+      {!gameOn && <Confetti width={width} height={height} />}
     </>
   );
 };

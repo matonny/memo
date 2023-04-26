@@ -13,7 +13,7 @@ export const Toggle = ({ label, onclick, checked }: ToggleProps) => {
         onClick={onclick}
         className={styles.input}
         type="checkbox"
-        checked={checked}
+        defaultChecked={checked}
         id={label}
       ></input>
       <label htmlFor={label}>
