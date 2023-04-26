@@ -16,8 +16,12 @@
   font-size: calc(10px + 2vmin);
   padding: 0;
   margin: auto;
+  color: #0f2f62;
+  background-color: #d9f0ff;
 }
-.dark {
+.app.dark,
+.appContainer.dark,
+.lowerBar.dark {
   background-color: #0f2f62;
   color: #d9f0ff;
 }
@@ -40,6 +44,8 @@
   position: sticky;
   bottom: 0;
   border-top: 4px solid #0f2f62;
+  color: #0f2f62;
+  background-color: #d9f0ff;
 }
 
 .lowerBar.dark {

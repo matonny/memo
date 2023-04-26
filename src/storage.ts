@@ -3,6 +3,7 @@ import { backNames } from "./constants";
 
 const scoreKey = "score";
 const coinsKey = "coins";
+const darkModeKey = "darkMode";
 const currentBackKey = "currentBack";
 const boughtBacksKey = "boughtCovers";
 
@@ -57,7 +58,6 @@ export const getAvailableBacks = () => {
 export const buyBackIfEnoughCoins = (newBack: BackName, price: number = 50) => {
   const currCoins = getCoins();
   if (currCoins - price < 0) {
-    alert("too pricy");
     return false;
   }
   removeCoins(price);
@@ -87,4 +87,13 @@ export const getCoins = () => {
   const rawCoins = localStorage.getItem(coinsKey);
   const parsedCoins = rawCoins ? parseInt(rawCoins) : 0;
   return isNaN(parsedCoins) ? 0 : parsedCoins;
+};
+
+export const saveDarkMode = (darkMode: boolean) => {
+  localStorage.setItem(darkModeKey, JSON.stringify(darkMode));
+};
+
+export const getDarkMode = () => {
+  const rawDarkMode = localStorage.getItem(darkModeKey);
+  return rawDarkMode === "true" ? true : false;
 };

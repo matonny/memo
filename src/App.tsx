@@ -9,9 +9,10 @@ import { Customise } from "./components/Customise/Customise";
 import { Toggle } from "./components/Toggle/Toggle";
 import { Coins } from "./components/Coins/Coins";
 import { Button } from "./components/Button/Button";
+import { getDarkMode, saveDarkMode } from "./storage";
 export const App = () => {
   const [currState, setCurrState] = useState<GameState>("menu");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(getDarkMode());
   const statesWithMenu = (
     <div className={styles.container}>
       {currState === "game" && <Game />}
@@ -26,7 +27,6 @@ export const App = () => {
       </div>
     </div>
   );
-  console.log(currState);
   return (
     <div className={`${styles.appContainer} ${darkMode ? styles.dark : ""}`}>
       <div className={`${styles.app} ${darkMode ? styles.dark : ""}`}>
@@ -36,6 +36,7 @@ export const App = () => {
             label="darkModeToggle"
             onclick={() => {
               setDarkMode((prevDarkMode) => !prevDarkMode);
+              saveDarkMode(!darkMode);
             }}
           ></Toggle>
         </div>
