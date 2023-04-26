@@ -33,6 +33,7 @@ export const App = () => {
         <div className={styles.upperBar}>
           <Coins></Coins>
           <Toggle
+            checked={darkMode}
             label="darkModeToggle"
             onclick={() => {
               setDarkMode((prevDarkMode) => !prevDarkMode);

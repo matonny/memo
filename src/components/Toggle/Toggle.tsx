@@ -3,15 +3,17 @@ import styles from "./Toggle.module.css";
 type ToggleProps = Readonly<{
   label: string;
   onclick: () => void;
+  checked: boolean;
 }>;
 
-export const Toggle = ({ label, onclick }: ToggleProps) => {
+export const Toggle = ({ label, onclick, checked }: ToggleProps) => {
   return (
     <>
       <input
         onClick={onclick}
         className={styles.input}
         type="checkbox"
+        checked={checked}
         id={label}
       ></input>
       <label htmlFor={label}>

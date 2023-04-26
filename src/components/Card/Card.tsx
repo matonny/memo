@@ -41,7 +41,7 @@ export const Card = ({ card, flipped, onClick, back, color }: CardProps) => {
         <div className={frontClass} style={{ backgroundColor: color }}>
           {color ? "" : card}
         </div>
-        <div className={backClass}>{color}</div>
+        <div className={backClass}></div>
       </div>
     </div>
   );
