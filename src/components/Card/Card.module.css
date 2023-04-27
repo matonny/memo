@@ -3,6 +3,7 @@
   height: 150px;
   border-radius: 10px;
   margin: 10px;
+  -webkit-transform: translateZ(-1000px);
 }
 *,
 *::before,

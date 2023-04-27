@@ -6,7 +6,7 @@ Developed to train 3 particular aspects:
 
 - Accessibility - can be fully played only with keyboard thanks to CSS indicating active elements and ARIA labels allowing custom components to be reachable
 - Implementing dark mode
-- Custom CSS animations e
+- Custom CSS animations
 
 Features:
 
